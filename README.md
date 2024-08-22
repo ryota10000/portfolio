@@ -34,11 +34,10 @@ MVPリリース
 クリックするだけで点数計算ができるサイトを作る。
 https://yanohirota.com/mahjong-scoring-calculator/
 このサイトは４人用だが３人用を作る。
-https://mahjong-runk-navi.glitch.me/
 
 本リリース
 ログイン機能で、３人が同時に画面を動かすことができ、持ち点をわかるようにする。
-
+https://mahjong-runk-navi.glitch.me/
 
 ■ 機能の実装方針予定
 一般的なCRUD以外の実装予定の機能についてそれぞれどのようなイメージ(使用するAPIや)で実装する予定なのか現状考えているもので良いので教えて下さい。
