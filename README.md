@@ -37,6 +37,7 @@ https://yanohirota.com/mahjong-scoring-calculator/
 このサイトは４人用だが３人用を作る。
 
 本リリース
+ログイン機能で試合ごと順位とと何点持っていたかデータを保存しておく。
 ログイン機能で、３人が同時に画面を動かすことができ、持ち点をわかるようにする。
 https://mahjong-runk-navi.glitch.me/
 
