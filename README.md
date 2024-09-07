@@ -61,3 +61,4 @@ https://mahjong-runk-navi.glitch.me/
 Figma：https://www.figma.com/design/LKuXiA0BYrpfEhCW1UwtZF/Untitled?node-id=0-1&node-type=CANVAS&t=qNLV12FTNgIfOIyy-0
 
 ### ER図
+[![Image from Gyazo](https://i.gyazo.com/cd8606b7c6650c9f00e500c758e7509c.png)](https://gyazo.com/cd8606b7c6650c9f00e500c758e7509c)
