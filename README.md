@@ -60,3 +60,6 @@ https://mahjong-runk-navi.glitch.me/
 ### 画面遷移図
 Figma：https://www.figma.com/design/LKuXiA0BYrpfEhCW1UwtZF/Untitled?node-id=0-1&node-type=CANVAS&t=qNLV12FTNgIfOIyy-0
 
+### ER図
+[![Image from Gyazo](https://i.gyazo.com/344145391bd605d3f23036e32ce3ac49.png)](https://gyazo.com/344145391bd605d3f23036e32ce3ac49)
+
