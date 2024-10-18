@@ -1,0 +1,54 @@
+<h1>麻雀 点数計算</h1>
+
+<div id="score_display">点数がここに表示されます</div>
+
+<% @yaku_values.each do |yaku, score| %>
+  <button class="yaku-button" data-score="<%= score %>"><%= yaku %></button>
+<% end %>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const buttons = document.querySelectorAll('.yaku-button');
+    const scoreDisplay = document.getElementById('score_display');
+    let totalHan = 0; // 合計翻を保持する変数
+    let totalFu = 0;  // 合計符を保持する変数
+    let selectedYaku = []; // 選択された役を保持する配列
+
+    // コントローラーから渡された役の値をJavaScriptに渡す
+    const yakuValues = <%= raw @yaku_values.to_json %>;
+
+    buttons.forEach(button => {
+      let isSelected = false; // ボタンが選択されているかを追跡するフラグ
+
+      button.addEventListener('click', function() {
+        const yakuName = this.textContent; // 役の名前を取得
+
+        if (isSelected) {
+          // すでに選択されている場合は翻と符を減算
+          totalHan -= yakuValues[yakuName].han;
+          totalFu -= yakuValues[yakuName].fu;
+          selectedYaku = selectedYaku.filter(yaku => yaku !== yakuName); // 選択された役から削除
+          this.classList.remove('selected'); // ボタンの状態を元に戻す
+        } else {
+          // 選択されていない場合は翻と符を加算
+          totalHan += yakuValues[yakuName].han;
+          totalFu += yakuValues[yakuName].fu;
+          selectedYaku.push(yakuName); // 選択された役に追加
+          this.classList.add('selected'); // ボタンが選択されていることを示すクラス
+        }
+
+        isSelected = !isSelected; // 状態を反転
+
+        // 翻と符の組み合わせに基づいた点数を取得するためのキーを作成
+        const scoreKey = `han:${totalHan},fu:${totalFu}`;
+
+        // コントローラーから渡された得点表を参照して、翻と符の組み合わせに基づいた点数を取得
+        const totalScore = <%= raw @yaku_score.to_json %>[scoreKey] ? <%= raw @yaku_score.to_json %>[scoreKey] : 0;
+
+        // 合計翻と符を表示
+        scoreDisplay.textContent = `合計翻: ${totalHan}, 合計符: ${totalFu}, 合計点数: ${totalScore}点, 選択された役: ${selectedYaku.join(', ')}`;
+      });
+    });
+  });
+</script>
