@@ -40,14 +40,17 @@
 
         isSelected = !isSelected; // 状態を反転
 
+        // 合計符を10単位で切り上げる
+        const roundedFu = Math.ceil(totalFu / 10) * 10;
+
         // 翻と符の組み合わせに基づいた点数を取得するためのキーを作成
-        const scoreKey = `han:${totalHan},fu:${totalFu}`;
+        const scoreKey = `han:${totalHan},fu:${roundedFu}`;
 
         // コントローラーから渡された得点表を参照して、翻と符の組み合わせに基づいた点数を取得
         const totalScore = <%= raw @yaku_score.to_json %>[scoreKey] ? <%= raw @yaku_score.to_json %>[scoreKey] : 0;
 
         // 合計翻と符を表示
-        scoreDisplay.textContent = `合計翻: ${totalHan}, 合計符: ${totalFu}, 合計点数: ${totalScore}点, 選択された役: ${selectedYaku.join(', ')}`;
+        scoreDisplay.textContent = `合計翻: ${totalHan}, 合計符: ${roundedFu}, 合計点数: ${totalScore}点, 選択された役: ${selectedYaku.join(', ')}`;
       });
     });
   });

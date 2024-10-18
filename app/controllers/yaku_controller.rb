@@ -1,10 +1,10 @@
-class YakuController < ApplicationController 
+class YakuController < ApplicationController
   def index
     @yaku_values = {
       'リーチ' => { han: 1, fu: 0 },
       'ツモ' => { han: 1, fu: 20 },
-      '平和' => { han: 1, fu: 0 },
-      '一発' => { han: 1, fu: 20 },
+      '平和' => { han: 1, fu: 2 },
+      '一発' => { han: 1, fu: 6 },
       # 他の役も追加できます
     }
 
