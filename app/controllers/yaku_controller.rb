@@ -5,6 +5,7 @@ class YakuController < ApplicationController
       'ツモ' => { han: 1, fu: 20 },
       '平和' => { han: 1, fu: 2 },
       '一発' => { han: 1, fu: 6 },
+      '七対子' => { han: 1, fu: 25 },
       # 他の役も追加できます
     }
 

@@ -3,7 +3,7 @@
 <div id="score_display">点数がここに表示されます</div>
 
 <% @yaku_values.each do |yaku, score| %>
-  <button class="yaku-button" data-score="<%= score %>"><%= yaku %></button>
+  <button class="yaku-button" data-han="<%= score[:han] %>" data-fu="<%= score[:fu] %>"><%= yaku %></button>
 <% end %>
 
 
@@ -40,8 +40,14 @@
 
         isSelected = !isSelected; // 状態を反転
 
-        // 合計符を10単位で切り上げる
-        const roundedFu = Math.ceil(totalFu / 10) * 10;
+        // 七対子が選択されている場合は符を25に固定、それ以外は10単位で切り上げ
+        let roundedFu;
+        if (selectedYaku.includes('七対子')) {
+          roundedFu = 25;  // 符を25に固定
+        } else {
+          // そうでない場合は10単位で切り上げ
+          roundedFu = Math.ceil(totalFu / 10) * 10;
+        }
 
         // 翻と符の組み合わせに基づいた点数を取得するためのキーを作成
         const scoreKey = `han:${totalHan},fu:${roundedFu}`;
