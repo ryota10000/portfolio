@@ -11,10 +11,8 @@ class YakuController < ApplicationController
 
     # 翻、符、得点を一緒に定義する
     @yaku_score = {
-      'han:1,fu:0' => 1000,
-      'han:1,fu:20' => 2000,
-      'han:2,fu:0' => 4000,
-      'han:2,fu:20' => 8000,
+     'han:1,fu:80' => { parent: 2000, child: 1000 },
+     'han:2,fu:80' => { parent: 3900, child: 2000 },
     }
   end
 end
