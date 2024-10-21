@@ -43,8 +43,8 @@
     const roleRadios = document.querySelectorAll('input[name="role"]');
     const winTypeRadios = document.querySelectorAll('input[name="winType"]');
     const menzenRadios = document.querySelectorAll('input[name="menzen"]'); // 面前と鳴きのラジオボタン
-    let totalHan = 0; // 合計翻を保持する変数
-    let totalFu = 20;  // 合計符を保持する変数
+    let basicHan = 0; // 基本の合計翻を保持する変数
+    let basicFu = 20; // 基本の合計符を保持する変数
     let selectedYaku = []; // 選択された役を保持する配列
     let currentRole = 'parent'; // 初期値は親
     let currentWinType = 'tsumo'; // 初期値はツモ
@@ -55,28 +55,35 @@
 
     // スコア表示を更新する関数
     function updateScoreDisplay() {
-      let roundedFu;
       if (selectedYaku.includes('七対子')) {
-        roundedFu = 25; // 七対子は符25固定
+        totalFu = 25; // 七対子は符25固定
       } else if (selectedYaku.includes('平和')) {
         // 平和の特殊ルール: ツモなら20符、ロンなら30符
         if (currentWinType === 'tsumo') {
-          roundedFu = 20;
+          totalFu = 20;
         } else {
-          roundedFu = 30;
+          totalFu = 30;
         }
       } else {
-        roundedFu = Math.ceil(totalFu / 10) * 10;
+        totalFu = Math.ceil(basicFu / 10) * 10; // 基本符を10単位で切り上げ
       }
 
-      const scoreKey = `han:${totalHan},fu:${roundedFu}`;
+      totalHan = basicHan; // 最終的な合計翻を初期化
+
+      // 「三色同順」が選択されていて鳴きなしの場合、1翻増加
+      if (selectedYaku.includes('三色同順') && currentMenzen === 'none') {
+        totalHan += 1; // 鳴きなしの場合1翻増加
+      }
+
+      // 翻と符の組み合わせに基づいた点数を取得
+      const scoreKey = `han:${totalHan},fu:${totalFu}`;
       let totalScore = 0;
       if (yakuScore[scoreKey] && yakuScore[scoreKey][currentRole]) {
         totalScore = yakuScore[scoreKey][currentRole][currentWinType];
       }
 
       // 合計翻と符を表示
-      scoreDisplay.textContent = `合計翻: ${totalHan}, 合計符: ${roundedFu}, 合計点数: ${totalScore}点, 選択された役: ${selectedYaku.join(', ')}`;
+      scoreDisplay.textContent = `合計翻: ${totalHan}, 合計符: ${totalFu}, 合計点数: ${totalScore}点, 選択された役: ${selectedYaku.join(', ')}`;
     }
 
     // 親と子の切り替え
@@ -110,13 +117,13 @@
         const yakuName = this.textContent;
 
         if (isSelected) {
-          totalHan -= yakuValues[yakuName].han;
-          totalFu -= yakuValues[yakuName].fu;
+          basicHan -= yakuValues[yakuName].han; // 基本の翻を減算
+          basicFu -= yakuValues[yakuName].fu; // 基本の符を減算
           selectedYaku = selectedYaku.filter(yaku => yaku !== yakuName);
           this.classList.remove('selected');
         } else {
-          totalHan += yakuValues[yakuName].han;
-          totalFu += yakuValues[yakuName].fu;
+          basicHan += yakuValues[yakuName].han; // 基本の翻を加算
+          basicFu += yakuValues[yakuName].fu; // 基本の符を加算
           selectedYaku.push(yakuName);
           this.classList.add('selected');
         }

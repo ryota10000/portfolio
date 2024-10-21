@@ -11,6 +11,4 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "yaku#index"
-
-  # get "yaku", to: "yaku#index"
 end
