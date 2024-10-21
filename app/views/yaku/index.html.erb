@@ -22,6 +22,16 @@
   </label>
 </div>
 
+<!-- 面前（鳴きなし）と鳴きありの選択肢を追加 -->
+<div>
+  <label>
+    <input type="radio" name="menzen" value="none" checked> 鳴きなし（面前）
+  </label>
+  <label>
+    <input type="radio" name="menzen" value="open"> 鳴きあり
+  </label>
+</div>
+
 <% @yaku_values.each do |yaku, score| %>
   <button class="yaku-button" data-han="<%= score[:han] %>" data-fu="<%= score[:fu] %>"><%= yaku %></button>
 <% end %>
@@ -32,22 +42,22 @@
     const scoreDisplay = document.getElementById('score_display');
     const roleRadios = document.querySelectorAll('input[name="role"]');
     const winTypeRadios = document.querySelectorAll('input[name="winType"]');
+    const menzenRadios = document.querySelectorAll('input[name="menzen"]'); // 面前と鳴きのラジオボタン
     let totalHan = 0; // 合計翻を保持する変数
     let totalFu = 20;  // 合計符を保持する変数
     let selectedYaku = []; // 選択された役を保持する配列
     let currentRole = 'parent'; // 初期値は親
     let currentWinType = 'tsumo'; // 初期値はツモ
+    let currentMenzen = 'none'; // 初期値は鳴きなし（面前）
 
-    // コントローラーから渡された役の値をJavaScriptに渡す
     const yakuValues = <%= raw @yaku_values.to_json %>;
     const yakuScore = <%= raw @yaku_score.to_json %>;
 
     // スコア表示を更新する関数
     function updateScoreDisplay() {
-      // 七対子が選択されている場合は符を25に固定、それ以外は10単位で切り上げ
       let roundedFu;
       if (selectedYaku.includes('七対子')) {
-        roundedFu = 25;
+        roundedFu = 25; // 七対子は符25固定
       } else if (selectedYaku.includes('平和')) {
         // 平和の特殊ルール: ツモなら20符、ロンなら30符
         if (currentWinType === 'tsumo') {
@@ -59,10 +69,7 @@
         roundedFu = Math.ceil(totalFu / 10) * 10;
       }
 
-      // 翻と符の組み合わせに基づいた点数を取得するためのキーを作成
       const scoreKey = `han:${totalHan},fu:${roundedFu}`;
-
-      // 得点を取得
       let totalScore = 0;
       if (yakuScore[scoreKey] && yakuScore[scoreKey][currentRole]) {
         totalScore = yakuScore[scoreKey][currentRole][currentWinType];
@@ -88,6 +95,14 @@
       });
     });
 
+    // 鳴きなし（面前）と鳴きありの切り替え
+    menzenRadios.forEach(radio => {
+      radio.addEventListener('change', function() {
+        currentMenzen = this.value;
+        updateScoreDisplay();
+      });
+    });
+
     buttons.forEach(button => {
       let isSelected = false;
 
@@ -95,13 +110,11 @@
         const yakuName = this.textContent;
 
         if (isSelected) {
-          // すでに選択されている場合は翻と符を減算
           totalHan -= yakuValues[yakuName].han;
           totalFu -= yakuValues[yakuName].fu;
           selectedYaku = selectedYaku.filter(yaku => yaku !== yakuName);
           this.classList.remove('selected');
         } else {
-          // 選択されていない場合は翻と符を加算
           totalHan += yakuValues[yakuName].han;
           totalFu += yakuValues[yakuName].fu;
           selectedYaku.push(yakuName);

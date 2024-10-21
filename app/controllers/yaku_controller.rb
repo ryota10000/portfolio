@@ -5,7 +5,13 @@ class YakuController < ApplicationController
       "ツモ" => { han: 1, fu: 20 },
       "平和" => { han: 1, fu: nil },
       "一発" => { han: 1, fu: 6 },
-      "七対子" => { han: 1, fu: 25 }
+      "七対子" => { han: 1, fu: 25 },
+      "三色同順" => { han: 2, fu: 0 },
+      "一気通貫" => { han: 2, fu: 0 },
+      "混一色" => { han: 3, fu: 0 },
+      "清一色" => { han: 6, fu: 0 },
+      "全帯幺" => { han: 2, fu: 0 },
+      "純全帯幺" => { han: 3, fu: 0 }
       # 他の役も追加できます
     }
 
