@@ -25,7 +25,7 @@
 <!-- 面前（鳴きなし）と鳴きありの選択肢を追加 -->
 <div>
   <label>
-    <input type="radio" name="menzen" value="none" checked> 鳴きなし（面前）
+    <input type="radio" name="menzen" value="none" checked> 鳴きなし（門前）
   </label>
   <label>
     <input type="radio" name="menzen" value="open"> 鳴きあり
@@ -88,7 +88,7 @@ document.addEventListener("DOMContentLoaded", function() {
     totalHan = basicHan; // 最終的な合計翻を初期化
 
     // 鳴きなし（面前）なら、特定の役について1翻増加
-    const menzenBonusYaku = ['三色同順', '一気通貫', '混一色', '清一色', '全帯幺', '純全帯幺'];
+    const menzenBonusYaku = ['三色同順', '一気通貫', '混一色', '清一色', '混全帯幺九', '純全帯幺九'];
     menzenBonusYaku.forEach(yaku => {
       if (selectedYaku.includes(yaku) && currentMenzen === 'none') {
         totalHan += 1; // 鳴きなしの場合、1翻増加
@@ -97,9 +97,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // 翻と符の組み合わせに基づいた点数を取得
     let scoreKey;
-    if (totalHan === 3 && totalFu > 60) {
+    if (totalHan === 3 && totalFu >= 60) {
       scoreKey = 'han:3,fu:over60';
-    } else if (totalHan === 4 && totalFu > 30) {
+    } else if (totalHan === 4 && totalFu >= 30) {
       scoreKey = 'han:4,fu:over30';
     } else if (totalHan >= 5 && totalHan <= 12) {
       scoreKey = `han:${totalHan},fu:any`;
