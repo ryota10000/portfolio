@@ -70,10 +70,13 @@
 
       totalHan = basicHan; // 最終的な合計翻を初期化
 
-      // 「三色同順」が選択されていて鳴きなしの場合、1翻増加
-      if (selectedYaku.includes('三色同順') && currentMenzen === 'none') {
-        totalHan += 1; // 鳴きなしの場合1翻増加
-      }
+      // 鳴きなしの場合、特定の役について1翻増加
+      const menzenBonusYaku = ['三色同順', '一気通貫', '混一色', '清一色', '全帯幺', '純全帯幺'];
+      menzenBonusYaku.forEach(yaku => {
+        if (selectedYaku.includes(yaku) && currentMenzen === 'none') {
+          totalHan += 1; // 鳴きなしの場合、1翻増加
+        }
+      });
 
       // 翻と符の組み合わせに基づいた点数を取得
       const scoreKey = `han:${totalHan},fu:${totalFu}`;
