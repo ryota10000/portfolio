@@ -15,7 +15,7 @@
 <!-- ツモとロンの選択肢を追加 -->
 <div>
   <label>
-    <input type="radio" name="winType" value="tsumo" checked> ツモ
+    <input type="radio" name="winType" value="tumo" checked> ツモ
   </label>
   <label>
     <input type="radio" name="winType" value="ron"> ロン
@@ -37,103 +37,141 @@
 <% end %>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const buttons = document.querySelectorAll('.yaku-button');
-    const scoreDisplay = document.getElementById('score_display');
-    const roleRadios = document.querySelectorAll('input[name="role"]');
-    const winTypeRadios = document.querySelectorAll('input[name="winType"]');
-    const menzenRadios = document.querySelectorAll('input[name="menzen"]'); // 面前と鳴きのラジオボタン
-    let basicHan = 0; // 基本の合計翻を保持する変数
-    let basicFu = 20; // 基本の合計符を保持する変数
-    let selectedYaku = []; // 選択された役を保持する配列
-    let currentRole = 'parent'; // 初期値は親
-    let currentWinType = 'tsumo'; // 初期値はツモ
-    let currentMenzen = 'none'; // 初期値は鳴きなし（面前）
+document.addEventListener("DOMContentLoaded", function() {
+  const buttons = document.querySelectorAll('.yaku-button');
+  const scoreDisplay = document.getElementById('score_display');
+  const roleRadios = document.querySelectorAll('input[name="role"]');
+  const winTypeRadios = document.querySelectorAll('input[name="winType"]');
+  const menzenRadios = document.querySelectorAll('input[name="menzen"]');
+  let basicHan = 0; // 基本の合計翻を保持する変数
+  let totalHan = 0; // 最終的な合計翻を保持する変数
+  let basicFu = 20; // 基本の合計符を保持する変数
+  let totalFu = 0;  // 最終的な合計符を保持する変数
+  let selectedYaku = []; // 選択された役を保持する配列
+  let currentRole = 'parent'; // 初期値は親
+  let currentWinType = 'tumo'; // 初期値はツモ
+  let currentMenzen = 'none'; // 初期値は鳴きなし（面前）
 
-    const yakuValues = <%= raw @yaku_values.to_json %>;
-    const yakuScore = <%= raw @yaku_score.to_json %>;
+  const yakuValues = <%= raw @yaku_values.to_json %>;
+  const yakuScore = <%= raw @yaku_score.to_json %>;
 
-    // スコア表示を更新する関数
-    function updateScoreDisplay() {
-      if (selectedYaku.includes('七対子')) {
-        totalFu = 25; // 七対子は符25固定
-      } else if (selectedYaku.includes('平和')) {
-        // 平和の特殊ルール: ツモなら20符、ロンなら30符
-        if (currentWinType === 'tsumo') {
-          totalFu = 20;
-        } else {
-          totalFu = 30;
+  // スコア表示を更新する関数
+  function updateScoreDisplay() {
+    // 符の初期化
+    totalFu = basicFu;
+
+    // 七対子の場合、符を25に固定
+    if (selectedYaku.includes('七対子')) {
+      totalFu = 25;
+    } else if (selectedYaku.includes('平和')) {
+      // 平和の場合、ツモなら20符、ロンなら30符
+      if (currentWinType === 'tumo') {
+        totalFu = 20;
+      } else if (currentWinType === 'ron') {
+        totalFu = 30;
+      }
+    } else {
+      // 鳴きなし（面前）と鳴きありで符を調整
+      if (currentWinType === 'ron') {
+        if (currentMenzen === 'none') {
+          totalFu += 10; // 鳴きなし（面前）のロンは10符加算
         }
-      } else {
-        totalFu = Math.ceil(basicFu / 10) * 10; // 基本符を10単位で切り上げ
+        // 鳴きありのロンは符の加算なし (0符)
+      } else if (currentWinType === 'tumo') {
+        totalFu += 2; // 鳴きなし（面前）と鳴きありのツモは2符加算
       }
 
-      totalHan = basicHan; // 最終的な合計翻を初期化
-
-      // 鳴きなしの場合、特定の役について1翻増加
-      const menzenBonusYaku = ['三色同順', '一気通貫', '混一色', '清一色', '全帯幺', '純全帯幺'];
-      menzenBonusYaku.forEach(yaku => {
-        if (selectedYaku.includes(yaku) && currentMenzen === 'none') {
-          totalHan += 1; // 鳴きなしの場合、1翻増加
-        }
-      });
-
-      // 翻と符の組み合わせに基づいた点数を取得
-      const scoreKey = `han:${totalHan},fu:${totalFu}`;
-      let totalScore = 0;
-      if (yakuScore[scoreKey] && yakuScore[scoreKey][currentRole]) {
-        totalScore = yakuScore[scoreKey][currentRole][currentWinType];
-      }
-
-      // 合計翻と符を表示
-      scoreDisplay.textContent = `合計翻: ${totalHan}, 合計符: ${totalFu}, 合計点数: ${totalScore}点, 選択された役: ${selectedYaku.join(', ')}`;
+      // 最終的な符は10単位で切り上げ
+      totalFu = Math.ceil(totalFu / 10) * 10;
     }
 
-    // 親と子の切り替え
-    roleRadios.forEach(radio => {
-      radio.addEventListener('change', function() {
-        currentRole = this.value;
-        updateScoreDisplay();
-      });
+    totalHan = basicHan; // 最終的な合計翻を初期化
+
+    // 鳴きなし（面前）なら、特定の役について1翻増加
+    const menzenBonusYaku = ['三色同順', '一気通貫', '混一色', '清一色', '全帯幺', '純全帯幺'];
+    menzenBonusYaku.forEach(yaku => {
+      if (selectedYaku.includes(yaku) && currentMenzen === 'none') {
+        totalHan += 1; // 鳴きなしの場合、1翻増加
+      }
     });
 
-    // ツモとロンの切り替え
-    winTypeRadios.forEach(radio => {
-      radio.addEventListener('change', function() {
-        currentWinType = this.value;
-        updateScoreDisplay();
-      });
-    });
+    // 翻と符の組み合わせに基づいた点数を取得
+    let scoreKey;
+    if (totalHan === 3 && totalFu > 60) {
+      scoreKey = 'han:3,fu:over60';
+    } else if (totalHan === 4 && totalFu > 30) {
+      scoreKey = 'han:4,fu:over30';
+    } else if (totalHan >= 5 && totalHan <= 12) {
+      scoreKey = `han:${totalHan},fu:any`;
+    } else if (totalHan >= 13) {
+      scoreKey = 'han:over13,fu:any';
+    } else {
+      scoreKey = `han:${totalHan},fu:${totalFu}`;
+    }
 
-    // 鳴きなし（面前）と鳴きありの切り替え
-    menzenRadios.forEach(radio => {
-      radio.addEventListener('change', function() {
-        currentMenzen = this.value;
-        updateScoreDisplay();
-      });
-    });
+    let totalScore = 0;
 
-    buttons.forEach(button => {
-      let isSelected = false;
+    if (yakuScore[scoreKey] && yakuScore[scoreKey][currentRole]) {
+      if (yakuScore[scoreKey][currentRole][currentWinType]) {
+        totalScore = yakuScore[scoreKey][currentRole][currentWinType];
+      } else {
+        totalScore = 'N/A';
+      }
+    } else {
+      totalScore = 'N/A';
+    }
 
-      button.addEventListener('click', function() {
-        const yakuName = this.textContent;
+    // 合計翻と符を表示
+    scoreDisplay.textContent = `合計翻: ${totalHan}, 合計符: ${totalFu}, 合計点数: ${totalScore}, 選択された役: ${selectedYaku.join(', ')}`;
+  }
 
-        if (isSelected) {
-          basicHan -= yakuValues[yakuName].han; // 基本の翻を減算
-          basicFu -= yakuValues[yakuName].fu; // 基本の符を減算
-          selectedYaku = selectedYaku.filter(yaku => yaku !== yakuName);
-          this.classList.remove('selected');
-        } else {
-          basicHan += yakuValues[yakuName].han; // 基本の翻を加算
-          basicFu += yakuValues[yakuName].fu; // 基本の符を加算
-          selectedYaku.push(yakuName);
-          this.classList.add('selected');
-        }
-
-        isSelected = !isSelected;
-        updateScoreDisplay();
-      });
+  // 親と子の切り替え
+  roleRadios.forEach(radio => {
+    radio.addEventListener('change', function() {
+      currentRole = this.value;
+      updateScoreDisplay();
     });
   });
+
+  // ツモとロンの切り替え
+  winTypeRadios.forEach(radio => {
+    radio.addEventListener('change', function() {
+      currentWinType = this.value;
+      updateScoreDisplay();
+    });
+  });
+
+  // 鳴きなし（面前）と鳴きありの切り替え
+  menzenRadios.forEach(radio => {
+    radio.addEventListener('change', function() {
+      currentMenzen = this.value;
+      updateScoreDisplay();
+    });
+  });
+
+  // 役ボタンのクリックイベントを追加
+  buttons.forEach(button => {
+    button.dataset.isSelected = 'false'; // ボタンごとの選択状態を管理
+
+    button.addEventListener('click', function() {
+      const yakuName = this.textContent;
+
+      if (this.dataset.isSelected === 'true') {
+        basicHan -= yakuValues[yakuName].han; // 基本の翻を減算
+        basicFu -= yakuValues[yakuName].fu; // 基本の符を減算
+        selectedYaku = selectedYaku.filter(yaku => yaku !== yakuName);
+        this.classList.remove('selected');
+        this.dataset.isSelected = 'false'; // 選択状態を解除
+      } else {
+        basicHan += yakuValues[yakuName].han; // 基本の翻を加算
+        basicFu += yakuValues[yakuName].fu; // 基本の符を加算
+        selectedYaku.push(yakuName);
+        this.classList.add('selected');
+        this.dataset.isSelected = 'true'; // 選択状態を設定
+      }
+
+      updateScoreDisplay();
+    });
+  });
+});
 </script>
