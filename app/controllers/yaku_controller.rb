@@ -20,9 +20,9 @@ class YakuController < ApplicationController
 
       "ダブル立直" => { han: 2, fu: 0 },
       "七対子" => { han: 2, fu: 0 },
-      "三色同順" => { han: 1, fu: 0 },
-      "一気通貫" => { han: 1, fu: 0 },
-      "混全帯幺九" => { han: 1, fu: 0 },
+      "三色同順" => { han: 2, fu: 0 },
+      "一気通貫" => { han: 2, fu: 0 },
+      "混全帯幺九" => { han: 2, fu: 0 },
       "対々和" => { han: 2, fu: 0 },
       "三暗刻" => { han: 2, fu: 0 },
       "三色同刻" => { han: 2, fu: 0 },
@@ -31,11 +31,11 @@ class YakuController < ApplicationController
       "三槓子" => { han: 2, fu: 0 },
 
 
-      "混一色" => { han: 2, fu: 0 },
-      "純全帯幺九" => { han: 2, fu: 0 },
-      "二盃口" => { han: 2, fu: 0 },
+      "混一色" => { han: 3, fu: 0 },
+      "純全帯幺九" => { han: 3, fu: 0 },
+      "二盃口" => { han: 3, fu: 0 },
 
-      "清一色" => { han: 5, fu: 0 }
+      "清一色" => { han: 6, fu: 0 }
     }
 
     # 翻、符、得点を一緒に定義する

@@ -28,7 +28,7 @@
     <input type="radio" name="menzen" value="none" checked> 鳴きなし（門前）
   </label>
   <label>
-    <input type="radio" name="menzen" value="open"> 鳴きあり
+    <input type="radio" name="menzen" value="naki"> 鳴きあり
   </label>
 </div>
 
@@ -90,8 +90,8 @@ document.addEventListener("DOMContentLoaded", function() {
     // 鳴きなし（面前）なら、特定の役について1翻増加
     const menzenBonusYaku = ['三色同順', '一気通貫', '混一色', '清一色', '混全帯幺九', '純全帯幺九'];
     menzenBonusYaku.forEach(yaku => {
-      if (selectedYaku.includes(yaku) && currentMenzen === 'none') {
-        totalHan += 1; // 鳴きなしの場合、1翻増加
+      if (selectedYaku.includes(yaku) && currentMenzen === 'naki') {
+        totalHan -= 1; // 鳴きありの場合、1翻減少
       }
     });
 
