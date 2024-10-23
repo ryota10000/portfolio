@@ -41,7 +41,13 @@
   <button class="dora-button" data-dora="3">3</button>
   <button class="dora-button" data-dora="4">4</button>
   <button class="dora-button" data-dora="5">5</button>
-  <input type="number" id="custom-dora" placeholder="6以上" min="6">
+  <button class="dora-button" data-dora="6">6</button>
+  <button class="dora-button" data-dora="7">7</button>
+  <button class="dora-button" data-dora="8">8</button>
+  <button class="dora-button" data-dora="9">9</button>
+  <button class="dora-button" data-dora="10">10</button>
+  <button class="dora-button" data-dora="11">11</button>
+  <button class="dora-button" data-dora="12">12以上</button>
 </div>
 
 <% @yaku_values.each do |yaku, score| %>
@@ -56,16 +62,15 @@ document.addEventListener("DOMContentLoaded", function() {
   const winTypeRadios = document.querySelectorAll('input[name="winType"]');
   const menzenRadios = document.querySelectorAll('input[name="menzen"]');
   const doraButtons = document.querySelectorAll('.dora-button'); // ドラ枚数ボタン
-  const customDoraInput = document.getElementById('custom-dora'); // 手入力のドラ枚数
-  let basicHan = 0;
-  let totalHan = 0;
-  let basicFu = 20;
-  let totalFu = 0;
-  let selectedYaku = [];
-  let currentRole = 'parent';
-  let currentWinType = 'tumo';
-  let currentMenzen = 'none';
-  let totalDora = 0;
+  let basicHan = 0; // 基本の合計翻を保持する変数
+  let totalHan = 0; // 最終的な合計翻を保持する変数
+  let basicFu = 20; // 基本の合計符を保持する変数
+  let totalFu = 0;  // 最終的な合計符を保持する変数
+  let selectedYaku = []; // 選択された役を保持する配列
+  let currentRole = 'parent'; // 初期値は親
+  let currentWinType = 'tumo'; // 初期値はツモ
+  let currentMenzen = 'none'; // 初期値は鳴きなし（面前）
+  let totalDora = 0; // ドラ枚数を保持
 
   const yakuValues = <%= raw @yaku_values.to_json %>;
   const yakuScore = <%= raw @yaku_score.to_json %>;
@@ -76,10 +81,10 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   // スコア表示を更新する関数
-    function updateScoreDisplay() {
+  function updateScoreDisplay() {
     totalFu = basicFu;
 
-    // 七対子の符計算
+    // 七対子,平和の符計算
     if (selectedYaku.includes('七対子')) {
       totalFu = 25;
     } else if (selectedYaku.includes('平和')) {
@@ -120,7 +125,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     scoreDisplay.textContent = `合計翻: ${totalHan}, 合計符: ${totalFu}, 合計点数: ${totalScore}, ドラ枚数: ${totalDora}, 選択された役: ${selectedYaku.join(', ')}`;
-}
+  }
 
   // 親と子の切り替え
   roleRadios.forEach(radio => {
@@ -150,16 +155,8 @@ document.addEventListener("DOMContentLoaded", function() {
   doraButtons.forEach(button => {
     button.addEventListener('click', function() {
       totalDora = parseInt(this.dataset.dora);
-      customDoraInput.value = ''; // 手入力のドラ数をクリア
       updateScoreDisplay();
     });
-  });
-
-  // 手入力によるドラ枚数の変更イベント
-  customDoraInput.addEventListener('input', function() {
-    totalDora = parseInt(this.value) || 0;
-    doraButtons.forEach(button => button.classList.remove('selected')); // ボタンの選択状態を解除
-    updateScoreDisplay();
   });
 
   // 役ボタンのクリックイベント
