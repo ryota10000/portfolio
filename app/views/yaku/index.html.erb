@@ -1,4 +1,4 @@
-<h1>麻雀 点数計算</h1>
+<h1>３人麻雀 点数計算</h1>
 
 <div id="score_display">点数がここに表示されます</div>
 
@@ -50,8 +50,35 @@
   <button class="dora-button" data-dora="12">12以上</button>
 </div>
 
-<% @yaku_values.each do |yaku, score| %>
-  <button class="yaku-button" data-han="<%= score[:han] %>" data-fu="<%= score[:fu] %>"><%= yaku %></button>
+<% grouped_yaku = [
+  { han: 1, yaku: [
+    ["立直", "一発", "門前清自模和", "平和", "断么九", "一盃口"],
+    ["白", "發", "中", "自風牌", "場風牌"],
+    ["槍槓", "嶺上開花", "海底撈月", "河底撈魚"]
+  ] },
+  { han: 2, yaku: [
+    ["ダブル立直", "七対子", "三色同順", "一気通貫", "混全帯幺九"],
+    ["対々和", "三暗刻", "三色同刻", "混老頭", "小三元", "三槓子"]
+  ] },
+  { han: 3, yaku: [
+    ["混一色", "純全帯幺九", "二盃口"]
+  ] },
+  { han: 6, yaku: [
+    ["清一色"]
+  ] }
+] %>
+
+<% grouped_yaku.each do |group| %>
+  <h2><%= group[:han] %>翻</h2> <!-- 翻数の見出しを表示 -->
+  <% group[:yaku].each do |yaku_group| %>
+    <div class="yaku-row">
+      <% yaku_group.each do |yaku| %>
+        <% if @yaku_values[yaku] %>
+          <button class="yaku-button" data-han="<%= @yaku_values[yaku][:han] %>" data-fu="<%= @yaku_values[yaku][:fu] %>"><%= yaku %></button>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
 <% end %>
 
 <script>
@@ -102,7 +129,14 @@ document.addEventListener("DOMContentLoaded", function() {
       totalFu = Math.ceil(totalFu / 10) * 10; // 10単位で切り上げ
     }
 
-    totalHan = basicHan + calculateDoraBonus(); // ドラボーナスを加算
+    totalHan = basicHan + calculateDoraBonus();
+
+    const menzenBonusYaku = ['三色同順', '一気通貫', '混一色', '清一色', '混全帯幺九', '純全帯幺九'];
+    menzenBonusYaku.forEach(yaku => {
+      if (selectedYaku.includes(yaku) && currentMenzen === 'naki') {
+        totalHan -= 1; // 鳴きありの場合、1翻減少
+      }
+    });
 
     // スコアキーを生成
     let scoreKey;
@@ -124,7 +158,7 @@ document.addEventListener("DOMContentLoaded", function() {
       totalScore = yakuScore[scoreKey][currentRole][currentWinType] || 'N/A';
     }
 
-    scoreDisplay.textContent = `合計翻: ${totalHan}, 合計符: ${totalFu}, 合計点数: ${totalScore}, ドラ枚数: ${totalDora}, 選択された役: ${selectedYaku.join(', ')}`;
+    scoreDisplay.textContent = `合計翻: ${totalHan}, 合計符: ${totalFu}, 合計点数: ${totalScore}(＋本場点), ドラ枚数: ${totalDora}, 選択された役: ${selectedYaku.join(', ')}`;
   }
 
   // 親と子の切り替え
@@ -151,7 +185,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   });
 
-  // ドラ枚数ボタンのクリックイベント
+  // ドラ枚数ボタンのクリック
   doraButtons.forEach(button => {
     button.addEventListener('click', function() {
       totalDora = parseInt(this.dataset.dora);
@@ -159,7 +193,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   });
 
-  // 役ボタンのクリックイベント
+  // 役ボタンのクリック
   buttons.forEach(button => {
     button.dataset.isSelected = 'false';
 

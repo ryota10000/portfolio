@@ -17,7 +17,6 @@ class YakuController < ApplicationController
       "海底撈月" => { han: 1, fu: 0 },
       "河底撈魚" => { han: 1, fu: 0 },
 
-
       "ダブル立直" => { han: 2, fu: 0 },
       "七対子" => { han: 2, fu: 0 },
       "三色同順" => { han: 2, fu: 0 },
@@ -30,7 +29,6 @@ class YakuController < ApplicationController
       "小三元" => { han: 2, fu: 0 },
       "三槓子" => { han: 2, fu: 0 },
 
-
       "混一色" => { han: 3, fu: 0 },
       "純全帯幺九" => { han: 3, fu: 0 },
       "二盃口" => { han: 3, fu: 0 },
@@ -40,6 +38,7 @@ class YakuController < ApplicationController
 
     # 翻、符、得点を一緒に定義する
     @yaku_score = {
+      "han:1,fu:20" => { parent: { ron: 1500, tumo: "800オール" }, child: { ron: 1000, tumo: "500/700" } },
       "han:1,fu:30" => { parent: { ron: 1500, tumo: "800オール" }, child: { ron: 1000, tumo: "500/700" } },
       "han:1,fu:40" => { parent: { ron: 2000, tumo: "1100オール" }, child: { ron: 1300, tumo: "600/900" } },
       "han:1,fu:50" => { parent: { ron: 2400, tumo: "1200オール" }, child: { ron: 1600, tumo: "600/1000" } },
