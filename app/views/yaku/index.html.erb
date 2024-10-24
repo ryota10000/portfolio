@@ -1,85 +1,147 @@
-<h1>３人麻雀 点数計算</h1>
+<h1 class="text-center text-4xl font-bold mt-8">３人麻雀 点数計算</h1>
 
-<div id="score_display">点数がここに表示されます</div>
+
 
 <!-- 親と子の選択肢を追加 -->
-<div>
+<div class="text-center text-2xl my-4">
   <label>
     <input type="radio" name="role" value="parent" checked> 親
   </label>
-  <label>
+  <label class="ml-4">
     <input type="radio" name="role" value="child"> 子
   </label>
 </div>
 
 <!-- ツモとロンの選択肢を追加 -->
-<div>
+<div class="text-center text-2xl my-4">
   <label>
     <input type="radio" name="winType" value="tumo" checked> ツモ
   </label>
-  <label>
+  <label class="ml-4">
     <input type="radio" name="winType" value="ron"> ロン
   </label>
 </div>
 
 <!-- 面前（鳴きなし）と鳴きありの選択肢を追加 -->
-<div>
+<div class="text-center text-2xl my-4">
   <label>
     <input type="radio" name="menzen" value="none" checked> 鳴きなし（門前）
   </label>
-  <label>
+  <label class="ml-4">
     <input type="radio" name="menzen" value="naki"> 鳴きあり
   </label>
 </div>
 
-<!-- ドラ枚数選択ボタンを追加 -->
-<div id="dora-selection">
-  <label>ドラ枚数:</label>
-  <button class="dora-button" data-dora="0">0</button>
-  <button class="dora-button" data-dora="1">1</button>
-  <button class="dora-button" data-dora="2">2</button>
-  <button class="dora-button" data-dora="3">3</button>
-  <button class="dora-button" data-dora="4">4</button>
-  <button class="dora-button" data-dora="5">5</button>
-  <button class="dora-button" data-dora="6">6</button>
-  <button class="dora-button" data-dora="7">7</button>
-  <button class="dora-button" data-dora="8">8</button>
-  <button class="dora-button" data-dora="9">9</button>
-  <button class="dora-button" data-dora="10">10</button>
-  <button class="dora-button" data-dora="11">11</button>
-  <button class="dora-button" data-dora="12">12以上</button>
+<!-- 点数表示のためのエリア -->
+<div id="score_display" class="text-center text-2xl my-4">
+  点数がここに表示されます
 </div>
 
-<% grouped_yaku = [
-  { han: 1, yaku: [
-    ["立直", "一発", "門前清自模和", "平和", "断么九", "一盃口"],
-    ["白", "發", "中", "自風牌", "場風牌"],
-    ["槍槓", "嶺上開花", "海底撈月", "河底撈魚"]
-  ] },
-  { han: 2, yaku: [
-    ["ダブル立直", "七対子", "三色同順", "一気通貫", "混全帯幺九"],
-    ["対々和", "三暗刻", "三色同刻", "混老頭", "小三元", "三槓子"]
-  ] },
-  { han: 3, yaku: [
-    ["混一色", "純全帯幺九", "二盃口"]
-  ] },
-  { han: 6, yaku: [
-    ["清一色"]
-  ] }
-] %>
+<!-- ドラ枚数選択ボタンを追加 -->
+<div id="dora-selection" class="text-center text-2xl my-4">
+  <label>ドラ枚数:</label>
+  <div class="inline-flex flex-wrap justify-center mt-2">
+    <button class="dora-button mx-1 px-4 py-2" data-dora="0">0</button>
+    <button class="dora-button mx-1 px-4 py-2" data-dora="1">1</button>
+    <button class="dora-button mx-1 px-4 py-2" data-dora="2">2</button>
+    <button class="dora-button mx-1 px-4 py-2" data-dora="3">3</button>
+    <button class="dora-button mx-1 px-4 py-2" data-dora="4">4</button>
+    <button class="dora-button mx-1 px-4 py-2" data-dora="5">5</button>
+    <button class="dora-button mx-1 px-4 py-2" data-dora="6">6</button>
+    <button class="dora-button mx-1 px-4 py-2" data-dora="7">7</button>
+    <button class="dora-button mx-1 px-4 py-2" data-dora="8">8</button>
+    <button class="dora-button mx-1 px-4 py-2" data-dora="9">9</button>
+    <button class="dora-button mx-1 px-4 py-2" data-dora="10">10</button>
+    <button class="dora-button mx-1 px-4 py-2" data-dora="11">11</button>
+    <button class="dora-button mx-1 px-4 py-2" data-dora="12">12以上</button>
+  </div>
+</div>
 
-<% grouped_yaku.each do |group| %>
-  <h2><%= group[:han] %>翻</h2> <!-- 翻数の見出しを表示 -->
-  <% group[:yaku].each do |yaku_group| %>
-    <div class="yaku-row">
-      <% yaku_group.each do |yaku| %>
+<div class="flex justify-around">
+
+  <div class="text-2xl text-center my-4">
+    <h2 class="text-2xl text-center my-4">1翻</h2> <!-- 1翻の見出し -->
+
+    <!-- 1翻の役 -->
+    <div class="text-2xl text-center my-4">
+      <% ["立直", "一発", "門前清自模和", "平和", "断么九", "一盃口"].each do |yaku| %>
+        <% if @yaku_values[yaku] %>
+          <button class="yaku-button bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                  data-han="<%= @yaku_values[yaku][:han] %>"
+                  data-fu="<%= @yaku_values[yaku][:fu] %>">
+            <%= yaku %>
+          </button>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="text-2xl text-center my-4">
+      <% ["白", "發", "中", "自風牌", "場風牌"].each do |yaku| %>
         <% if @yaku_values[yaku] %>
           <button class="yaku-button" data-han="<%= @yaku_values[yaku][:han] %>" data-fu="<%= @yaku_values[yaku][:fu] %>"><%= yaku %></button>
         <% end %>
       <% end %>
     </div>
-  <% end %>
-<% end %>
+
+    <div class="text-2xl text-center my-4">
+      <% ["槍槓", "嶺上開花", "海底撈月", "河底撈魚"].each do |yaku| %>
+        <% if @yaku_values[yaku] %>
+          <button class="yaku-button" data-han="<%= @yaku_values[yaku][:han] %>" data-fu="<%= @yaku_values[yaku][:fu] %>"><%= yaku %></button>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="text-2xl text-center my-4">
+    <h2 class="text-2xl text-center my-4">2翻</h2> <!-- 2翻の見出し -->
+
+    <!-- 2翻の役 -->
+    <div class="text-2xl text-center my-4">
+      <% ["ダブル立直", "七対子", "三色同順", "一気通貫", "混全帯幺九"].each do |yaku| %>
+        <% if @yaku_values[yaku] %>
+          <button class="yaku-button" data-han="<%= @yaku_values[yaku][:han] %>" data-fu="<%= @yaku_values[yaku][:fu] %>"><%= yaku %></button>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="text-2xl text-center my-4">
+      <% ["対々和", "三暗刻", "三色同刻", "混老頭", "小三元", "三槓子"].each do |yaku| %>
+        <% if @yaku_values[yaku] %>
+          <button class="yaku-button" data-han="<%= @yaku_values[yaku][:han] %>" data-fu="<%= @yaku_values[yaku][:fu] %>"><%= yaku %></button>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="flex justify-around">
+
+  <div class="text-2xl text-center my-4">
+    <h2 class="text-2xl text-center my-4">3翻</h2> <!-- 3翻の見出し -->
+
+    <!-- 3翻の役 -->
+    <div class="text-2xl text-center my-4">
+      <% ["混一色", "純全帯幺九", "二盃口"].each do |yaku| %>
+        <% if @yaku_values[yaku] %>
+          <button class="yaku-button" data-han="<%= @yaku_values[yaku][:han] %>" data-fu="<%= @yaku_values[yaku][:fu] %>"><%= yaku %></button>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="text-2xl text-center my-4">
+    <h2 class="text-2xl text-center my-4">6翻</h2> <!-- 6翻の見出し -->
+
+    <!-- 6翻の役 -->
+    <div class="text-2xl text-center my-4">
+      <% ["清一色"].each do |yaku| %>
+        <% if @yaku_values[yaku] %>
+          <button class="yaku-button" data-han="<%= @yaku_values[yaku][:han] %>" data-fu="<%= @yaku_values[yaku][:fu] %>"><%= yaku %></button>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
@@ -96,7 +158,7 @@ document.addEventListener("DOMContentLoaded", function() {
   let selectedYaku = []; // 選択された役を保持する配列
   let currentRole = 'parent'; // 初期値は親
   let currentWinType = 'tumo'; // 初期値はツモ
-  let currentMenzen = 'none'; // 初期値は鳴きなし（面前）
+  let currentMenzen = 'none'; // 初期値は鳴きなし（前）
   let totalDora = 0; // ドラ枚数を保持
 
   const yakuValues = <%= raw @yaku_values.to_json %>;
