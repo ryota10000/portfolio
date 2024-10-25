@@ -41,44 +41,30 @@
 <div id="dora-selection" class="text-center text-2xl my-4">
   <label>ドラ枚数:</label>
   <div class="inline-flex flex-wrap justify-center mt-2">
-    <button class="dora-button mx-1 px-4 py-2" data-dora="0">0</button>
-    <button class="dora-button mx-1 px-4 py-2" data-dora="1">1</button>
-    <button class="dora-button mx-1 px-4 py-2" data-dora="2">2</button>
-    <button class="dora-button mx-1 px-4 py-2" data-dora="3">3</button>
-    <button class="dora-button mx-1 px-4 py-2" data-dora="4">4</button>
-    <button class="dora-button mx-1 px-4 py-2" data-dora="5">5</button>
-    <button class="dora-button mx-1 px-4 py-2" data-dora="6">6</button>
-    <button class="dora-button mx-1 px-4 py-2" data-dora="7">7</button>
-    <button class="dora-button mx-1 px-4 py-2" data-dora="8">8</button>
-    <button class="dora-button mx-1 px-4 py-2" data-dora="9">9</button>
-    <button class="dora-button mx-1 px-4 py-2" data-dora="10">10</button>
-    <button class="dora-button mx-1 px-4 py-2" data-dora="11">11</button>
-    <button class="dora-button mx-1 px-4 py-2" data-dora="12">12以上</button>
+    <% (0..11).each do |dora_count| %>
+      <button class="dora-button px-4 py-2 mx-1 text-red-500 border border-red-500 font-semibold rounded hover:bg-red-100" data-dora="<%= dora_count %>""><%= dora_count %></button>
+    <% end %>
+    <button class="dora-button px-2 py-1 text-red-500 border border-red-500 font-semibold rounded hover:bg-red-100 mx-1 px-4 py-2" data-dora="12">12以上</button>
   </div>
 </div>
 
-<div class="flex justify-around">
+<div class="flex justify-center space-x-20">
 
   <div class="text-2xl text-center my-4">
     <h2 class="text-2xl text-center my-4">1翻</h2> <!-- 1翻の見出し -->
-
     <!-- 1翻の役 -->
     <div class="text-2xl text-center my-4">
-      <% ["立直", "一発", "門前清自模和", "平和", "断么九", "一盃口"].each do |yaku| %>
+      <% ["立直", "一発", "門前清自模和", "平和", "断么九"].each do |yaku| %>
         <% if @yaku_values[yaku] %>
-          <button class="yaku-button bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
-                  data-han="<%= @yaku_values[yaku][:han] %>"
-                  data-fu="<%= @yaku_values[yaku][:fu] %>">
-            <%= yaku %>
-          </button>
+          <button class="yaku-button px-2 py-1 text-indigo-500 border border-indigo-500 font-semibold rounded hover:bg-indigo-100" data-han="<%= @yaku_values[yaku][:han] %>" data-fu="<%= @yaku_values[yaku][:fu] %>"><%= yaku %></button>
         <% end %>
       <% end %>
     </div>
 
     <div class="text-2xl text-center my-4">
-      <% ["白", "發", "中", "自風牌", "場風牌"].each do |yaku| %>
+      <% ["一盃口", "白", "發", "中", "自風牌", "場風牌"].each do |yaku| %>
         <% if @yaku_values[yaku] %>
-          <button class="yaku-button" data-han="<%= @yaku_values[yaku][:han] %>" data-fu="<%= @yaku_values[yaku][:fu] %>"><%= yaku %></button>
+          <button class="yaku-button px-2 py-1 text-indigo-500 border border-indigo-500 font-semibold rounded hover:bg-indigo-100" data-han="<%= @yaku_values[yaku][:han] %>" data-fu="<%= @yaku_values[yaku][:fu] %>"><%= yaku %></button>
         <% end %>
       <% end %>
     </div>
@@ -86,7 +72,7 @@
     <div class="text-2xl text-center my-4">
       <% ["槍槓", "嶺上開花", "海底撈月", "河底撈魚"].each do |yaku| %>
         <% if @yaku_values[yaku] %>
-          <button class="yaku-button" data-han="<%= @yaku_values[yaku][:han] %>" data-fu="<%= @yaku_values[yaku][:fu] %>"><%= yaku %></button>
+          <button class="yaku-button px-2 py-1 text-indigo-500 border border-indigo-500 font-semibold rounded hover:bg-indigo-100" data-han="<%= @yaku_values[yaku][:han] %>" data-fu="<%= @yaku_values[yaku][:fu] %>"><%= yaku %></button>
         <% end %>
       <% end %>
     </div>
@@ -97,25 +83,32 @@
 
     <!-- 2翻の役 -->
     <div class="text-2xl text-center my-4">
-      <% ["ダブル立直", "七対子", "三色同順", "一気通貫", "混全帯幺九"].each do |yaku| %>
+      <% ["ダブル立直", "七対子", "三色同順", "一気通貫"].each do |yaku| %>
         <% if @yaku_values[yaku] %>
-          <button class="yaku-button" data-han="<%= @yaku_values[yaku][:han] %>" data-fu="<%= @yaku_values[yaku][:fu] %>"><%= yaku %></button>
+          <button class="yaku-button px-2 py-1 text-indigo-500 border border-indigo-500 font-semibold rounded hover:bg-indigo-100" data-han="<%= @yaku_values[yaku][:han] %>" data-fu="<%= @yaku_values[yaku][:fu] %>"><%= yaku %></button>
         <% end %>
       <% end %>
     </div>
 
     <div class="text-2xl text-center my-4">
-      <% ["対々和", "三暗刻", "三色同刻", "混老頭", "小三元", "三槓子"].each do |yaku| %>
+      <% ["混全帯幺九", "対々和", "三暗刻", "三色同刻"].each do |yaku| %>
         <% if @yaku_values[yaku] %>
-          <button class="yaku-button" data-han="<%= @yaku_values[yaku][:han] %>" data-fu="<%= @yaku_values[yaku][:fu] %>"><%= yaku %></button>
+          <button class="yaku-button px-2 py-1 text-indigo-500 border border-indigo-500 font-semibold rounded hover:bg-indigo-100" data-han="<%= @yaku_values[yaku][:han] %>" data-fu="<%= @yaku_values[yaku][:fu] %>"><%= yaku %></button>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="text-2xl text-center my-4">
+      <% ["混老頭", "小三元", "三槓子"].each do |yaku| %>
+        <% if @yaku_values[yaku] %>
+          <button class="yaku-button px-2 py-1 text-indigo-500 border border-indigo-500 font-semibold rounded hover:bg-indigo-100" data-han="<%= @yaku_values[yaku][:han] %>" data-fu="<%= @yaku_values[yaku][:fu] %>"><%= yaku %></button>
         <% end %>
       <% end %>
     </div>
   </div>
 </div>
 
-<div class="flex justify-around">
-
+<div class="flex justify-center space-x-20">
   <div class="text-2xl text-center my-4">
     <h2 class="text-2xl text-center my-4">3翻</h2> <!-- 3翻の見出し -->
 
@@ -123,7 +116,7 @@
     <div class="text-2xl text-center my-4">
       <% ["混一色", "純全帯幺九", "二盃口"].each do |yaku| %>
         <% if @yaku_values[yaku] %>
-          <button class="yaku-button" data-han="<%= @yaku_values[yaku][:han] %>" data-fu="<%= @yaku_values[yaku][:fu] %>"><%= yaku %></button>
+          <button class="yaku-button px-2 py-1 text-indigo-500 border border-indigo-500 font-semibold rounded hover:bg-indigo-100" data-han="<%= @yaku_values[yaku][:han] %>" data-fu="<%= @yaku_values[yaku][:fu] %>"><%= yaku %></button>
         <% end %>
       <% end %>
     </div>
@@ -136,7 +129,7 @@
     <div class="text-2xl text-center my-4">
       <% ["清一色"].each do |yaku| %>
         <% if @yaku_values[yaku] %>
-          <button class="yaku-button" data-han="<%= @yaku_values[yaku][:han] %>" data-fu="<%= @yaku_values[yaku][:fu] %>"><%= yaku %></button>
+          <button class="yaku-button px-2 py-1 text-indigo-500 border border-indigo-500 font-semibold rounded hover:bg-indigo-100" data-han="<%= @yaku_values[yaku][:han] %>" data-fu="<%= @yaku_values[yaku][:fu] %>"><%= yaku %></button>
         <% end %>
       <% end %>
     </div>
