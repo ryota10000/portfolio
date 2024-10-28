@@ -68,7 +68,7 @@ class YakuController < ApplicationController
       "han:1,fu:90" => { parent: { ron: 4400, tumo: "2300オール" }, child: { ron: 2900, tumo: "1200/1900" } },
       "han:1,fu:100" => { parent: { ron: 4800, tumo: "2400オール" }, child: { ron: 3200, tumo: "1200/2000" } },
 
-      "han:2,fu:20" => { parent: { ron: "N/A", tumo: "1100オール" }, child: { ron: "N/A", tumo: "600/900" } },
+      "han:2,fu:20" => { parent: { ron: 2900, tumo: "1100オール" }, child: { ron: 2000, tumo: "600/900" } },
       "han:2,fu:25" => { parent: { ron: 2400, tumo: "N/A" }, child: { ron: 1600, tumo: "N/A" } },
       "han:2,fu:30" => { parent: { ron: 2900, tumo: "1500オール" }, child: { ron: 2000, tumo: "800/1300" } },
       "han:2,fu:40" => { parent: { ron: 3900, tumo: "2000オール" }, child: { ron: 2600, tumo: "1100/1700" } },
