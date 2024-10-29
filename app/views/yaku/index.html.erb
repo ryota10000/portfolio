@@ -189,7 +189,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const menzenBonusYaku = ['三色同順', '一気通貫', '混一色', '清一色', '混全帯幺九', '純全帯幺九'];
     menzenBonusYaku.forEach(yaku => {
       if (selectedYaku.includes(yaku) && currentMenzen === 'naki') {
-        totalHan -= 1; // 鳴きありの場合1翻減少
+        totalHan -= 1; // 鳴きありの場合、1翻減少
       }
     });
 
