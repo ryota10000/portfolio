@@ -134,6 +134,19 @@
       <% end %>
     </div>
   </div>
+
+  <div class="text-2xl text-center my-4">
+    <h2 class="text-2xl text-center my-4">役満</h2> <!-- 6翻の見出し -->
+
+    <!-- 6翻の役 -->
+    <div class="text-2xl text-center my-4">
+      <% ["役満"].each do |yaku| %>
+        <% if @yaku_values[yaku] %>
+          <button class="yaku-button px-2 py-1 text-indigo-500 border border-indigo-500 font-semibold rounded hover:bg-indigo-100" data-han="<%= @yaku_values[yaku][:han] %>" data-fu="<%= @yaku_values[yaku][:fu] %>"><%= yaku %></button>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
 </div>
 
 <script>

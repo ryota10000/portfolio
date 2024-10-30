@@ -33,7 +33,9 @@ class YakuController < ApplicationController
       "純全帯幺九" => { han: 3, fu: 0 },
       "二盃口" => { han: 3, fu: 0 },
 
-      "清一色" => { han: 6, fu: 0 }
+      "清一色" => { han: 6, fu: 0 },
+
+      "役満" => { han: 13, fu: 0 }
     }
 
     @yaku_details = {
