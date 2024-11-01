@@ -42,7 +42,7 @@
   <label>ドラ枚数:</label>
   <div class="inline-flex flex-wrap justify-center mt-2">
     <% (0..11).each do |dora_count| %>
-      <button class="dora-button px-4 py-2 mx-1 text-red-500 border border-red-500 font-semibold rounded hover:bg-red-100" data-dora="<%= dora_count %>""><%= dora_count %></button>
+      <button class="dora-button px-4 py-2 mx-1 text-red-500 border border-red-500 font-semibold rounded hover:bg-red-100" data-dora="<%= dora_count %>"><%= dora_count %></button>
     <% end %>
     <button class="dora-button px-2 py-1 text-red-500 border border-red-500 font-semibold rounded hover:bg-red-100 mx-1 px-4 py-2" data-dora="12">12以上</button>
   </div>
@@ -149,141 +149,261 @@
   </div>
 </div>
 
+<h2 class="text-center text-2xl font-bold mt-8">( )の合計が10以上で、合計翻が3以下あればこれより下の項目を選択してください</h2>
+
+<div class="flex justify-center">
+  <div class="text-2xl text-center my-4">
+    <h2 class="text-2xl text-center my-4">1つ目の面子</h2> <!-- 符の見出し -->
+
+    <!-- 面子 -->
+    <div class="text-2xl text-center my-4">
+      <% ["順子(0)", "一九字牌のポン(4)", "一九字牌のアンコ(8)", "一九字牌のミンカン(16)", "一九字牌のアンカン(32)"].each do |yaku| %>
+        <% if @fu_values[yaku] %>
+          <button class="fu-button px-2 py-1 text-green-500 border border-indigo-500 font-semibold rounded hover:bg-indigo-100" data-han="<%= @fu_values[yaku][:han] %>" data-fu="<%= @fu_values[yaku][:fu] %>"><%= yaku %></button>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="text-2xl text-center my-4">
+      <% ["二〜八のポン(2)", "二〜八のアンコ(4)", "二〜八のミンカン(8)", "二〜八のアンカン(16)",].each do |yaku| %>
+        <% if @fu_values[yaku] %>
+          <button class="fu-button px-2 py-1 text-green-500 border border-indigo-500 font-semibold rounded hover:bg-indigo-100" data-han="<%= @fu_values[yaku][:han] %>" data-fu="<%= @fu_values[yaku][:fu] %>"><%= yaku %></button>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="flex justify-center">
+  <div class="text-2xl text-center my-4">
+    <h2 class="text-2xl text-center my-4">2つ目の面子</h2> <!-- 符の見出し -->
+
+    <!-- 面子 -->
+    <div class="text-2xl text-center my-4">
+      <% ["順子(0)", "一九字牌のポン(4)", "一九字牌のアンコ(8)", "一九字牌のミンカン(16)", "一九字牌のアンカン(32)"].each do |yaku| %>
+        <% if @fu_values[yaku] %>
+          <button class="fu-button px-2 py-1 text-green-500 border border-indigo-500 font-semibold rounded hover:bg-indigo-100" data-han="<%= @fu_values[yaku][:han] %>" data-fu="<%= @fu_values[yaku][:fu] %>"><%= yaku %></button>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="text-2xl text-center my-4">
+      <% ["二〜八のポン(2)", "二〜八のアンコ(4)", "二〜八のミンカン(8)", "二〜八のアンカン(16)",].each do |yaku| %>
+        <% if @fu_values[yaku] %>
+          <button class="fu-button px-2 py-1 text-green-500 border border-indigo-500 font-semibold rounded hover:bg-indigo-100" data-han="<%= @fu_values[yaku][:han] %>" data-fu="<%= @fu_values[yaku][:fu] %>"><%= yaku %></button>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="flex justify-center">
+  <div class="text-2xl text-center my-4">
+    <h2 class="text-2xl text-center my-4">3つ目の面子</h2> <!-- 符の見出し -->
+
+    <!-- 面子 -->
+    <div class="text-2xl text-center my-4">
+      <% ["順子(0)", "一九字牌のポン(4)", "一九字牌のアンコ(8)", "一九字牌のミンカン(16)", "一九字牌のアンカン(32)"].each do |yaku| %>
+        <% if @fu_values[yaku] %>
+          <button class="fu-button px-2 py-1 text-green-500 border border-indigo-500 font-semibold rounded hover:bg-indigo-100" data-han="<%= @fu_values[yaku][:han] %>" data-fu="<%= @fu_values[yaku][:fu] %>"><%= yaku %></button>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="text-2xl text-center my-4">
+      <% ["二〜八のポン(2)", "二〜八のアンコ(4)", "二〜八のミンカン(8)", "二〜八のアンカン(16)",].each do |yaku| %>
+        <% if @fu_values[yaku] %>
+          <button class="fu-button px-2 py-1 text-green-500 border border-indigo-500 font-semibold rounded hover:bg-indigo-100" data-han="<%= @fu_values[yaku][:han] %>" data-fu="<%= @fu_values[yaku][:fu] %>"><%= yaku %></button>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="flex justify-center">
+  <div class="text-2xl text-center my-4">
+    <h2 class="text-2xl text-center my-4">4つ目の面子</h2> <!-- 符の見出し -->
+
+    <!-- 面子 -->
+    <div class="text-2xl text-center my-4">
+      <% ["順子(0)", "一九字牌のポン(4)", "一九字牌のアンコ(8)", "一九字牌のミンカン(16)", "一九字牌のアンカン(32)"].each do |yaku| %>
+        <% if @fu_values[yaku] %>
+          <button class="fu-button px-2 py-1 text-green-500 border border-indigo-500 font-semibold rounded hover:bg-indigo-100" data-han="<%= @fu_values[yaku][:han] %>" data-fu="<%= @fu_values[yaku][:fu] %>"><%= yaku %></button>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="text-2xl text-center my-4">
+      <% ["二〜八のポン(2)", "二〜八のアンコ(4)", "二〜八のミンカン(8)", "二〜八のアンカン(16)",].each do |yaku| %>
+        <% if @fu_values[yaku] %>
+          <button class="fu-button px-2 py-1 text-green-500 border border-indigo-500 font-semibold rounded hover:bg-indigo-100" data-han="<%= @fu_values[yaku][:han] %>" data-fu="<%= @fu_values[yaku][:fu] %>"><%= yaku %></button>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-  const buttons = document.querySelectorAll('.yaku-button');
-  const scoreDisplay = document.getElementById('score_display');
-  const roleRadios = document.querySelectorAll('input[name="role"]');
-  const winTypeRadios = document.querySelectorAll('input[name="winType"]');
-  const menzenRadios = document.querySelectorAll('input[name="menzen"]');
-  const doraButtons = document.querySelectorAll('.dora-button'); // ドラ枚数ボタン
-  let basicHan = 0; // 基本の合計翻を保持する変数
-  let totalHan = 0; // 最終的な合計翻を保持する変数
-  let basicFu = 20; // 基本の合計符を保持する変数
-  let totalFu = 0;  // 最終的な合計符を保持する変数
-  let selectedYaku = []; // 選択された役を保持する配列
-  let currentRole = 'parent'; // 初期値は親
-  let currentWinType = 'tumo'; // 初期値はツモ
-  let currentMenzen = 'none'; // 初期値は鳴きなし（前）
-  let totalDora = 0; // ドラ枚数を保持
+  document.addEventListener("DOMContentLoaded", function() {
+    const yakuButtons = document.querySelectorAll('.yaku-button');
+    const fuButtons = document.querySelectorAll('.fu-button');
+    const scoreDisplay = document.getElementById('score_display');
+    const roleRadios = document.querySelectorAll('input[name="role"]');
+    const winTypeRadios = document.querySelectorAll('input[name="winType"]');
+    const menzenRadios = document.querySelectorAll('input[name="menzen"]');
+    const doraButtons = document.querySelectorAll('.dora-button'); // ドラ枚数ボタン
+    let basicHan = 0; // 基本の合計翻を保持する変数
+    let totalHan = 0; // 最終的な合計翻を保持する変数
+    let basicFu = 20; // 基本の合計符を保持する変数
+    let totalFu = 0;  // 最終的な合計符を保持する変数
+    let selectedYaku = []; // 選択された役を保持する配列
+    let selectedFu = []; // 選択された符を保持する配列
+    let currentRole = 'parent'; // 初期値は親
+    let currentWinType = 'tumo'; // 初期値はツモ
+    let currentMenzen = 'none'; // 初期値は鳴きなし（前）
+    let totalDora = 0; // ドラ枚数を保持
 
-  const yakuValues = <%= raw @yaku_values.to_json %>;
-  const yakuScore = <%= raw @yaku_score.to_json %>;
+    const yakuValues = <%= raw @yaku_values.to_json %>;
+    const fuValues = <%= raw @fu_values.to_json %>;
+    const yakuScore = <%= raw @yaku_score.to_json %>;
 
-  // ドラ枚数計算
-  function calculateDoraBonus() {
-    return totalDora;
-  }
-
-  // スコア表示を更新する関数
-  function updateScoreDisplay() {
-    totalFu = basicFu;
-
-    // 七対子,平和の符計算
-    if (selectedYaku.includes('七対子')) {
-      totalFu = 25;
-    } else if (selectedYaku.includes('平和')) {
-      if (currentWinType === 'tumo') {
-        totalFu = 20;
-      } else if (currentWinType === 'ron') {
-        totalFu = 30;
-      }
-    } else {
-      if (currentWinType === 'ron' && currentMenzen === 'none') {
-        totalFu += 10; // 鳴きなしのロンは10符加算
-      } else if (currentWinType === 'tumo') {
-        totalFu += 2; // ツモなら符を2加算
-      }
-      totalFu = Math.ceil(totalFu / 10) * 10; // 10単位で切り上げ
+    // ドラ枚数計算
+    function calculateDoraBonus() {
+      return totalDora;
     }
 
-    totalHan = basicHan + calculateDoraBonus();
+    // スコア表示を更新する関数
+    function updateScoreDisplay() {
+      totalFu = basicFu;
 
-    const menzenBonusYaku = ['三色同順', '一気通貫', '混一色', '清一色', '混全帯幺九', '純全帯幺九'];
-    menzenBonusYaku.forEach(yaku => {
-      if (selectedYaku.includes(yaku) && currentMenzen === 'naki') {
-        totalHan -= 1; // 鳴きありの場合、1翻減少
-      }
-    });
-
-    // スコアキーを生成
-    let scoreKey;
-    if (totalHan >= 13) {
-      scoreKey = 'han:over13,fu:any'; // 役満以上の場合
-    } else if (totalHan >= 5) {
-      scoreKey = `han:${totalHan},fu:any`; // 満貫以上の場合
-    } else if (totalHan === 4 && totalFu >= 30) {
-      scoreKey = 'han:4,fu:over30'; // 30符以上の4翻
-    } else if (totalHan === 3 && totalFu >= 60) {
-      scoreKey = 'han:3,fu:over60'; // 60符以上の3翻
-    } else {
-      scoreKey = `han:${totalHan},fu:${totalFu}`; // 通常の翻と符の組み合わせ
-    }
-
-    // スコアを取得
-    let totalScore = 'N/A';
-    if (yakuScore[scoreKey] && yakuScore[scoreKey][currentRole]) {
-      totalScore = yakuScore[scoreKey][currentRole][currentWinType] || 'N/A';
-    }
-
-    scoreDisplay.textContent = `合計翻: ${totalHan}, 合計符: ${totalFu}, 合計点数: ${totalScore}(＋本場点), ドラ枚数: ${totalDora}, 選択された役: ${selectedYaku.join(', ')}`;
-  }
-
-  // 親と子の切り替え
-  roleRadios.forEach(radio => {
-    radio.addEventListener('change', function() {
-      currentRole = this.value;
-      updateScoreDisplay();
-    });
-  });
-
-  // ツモとロンの切り替え
-  winTypeRadios.forEach(radio => {
-    radio.addEventListener('change', function() {
-      currentWinType = this.value;
-      updateScoreDisplay();
-    });
-  });
-
-  // 鳴きなし（面前）と鳴きありの切り替え
-  menzenRadios.forEach(radio => {
-    radio.addEventListener('change', function() {
-      currentMenzen = this.value;
-      updateScoreDisplay();
-    });
-  });
-
-  // ドラ枚数ボタンのクリック
-  doraButtons.forEach(button => {
-    button.addEventListener('click', function() {
-      totalDora = parseInt(this.dataset.dora);
-      updateScoreDisplay();
-    });
-  });
-
-  // 役ボタンのクリック
-  buttons.forEach(button => {
-    button.dataset.isSelected = 'false';
-
-    button.addEventListener('click', function() {
-      const yakuName = this.textContent;
-
-      if (this.dataset.isSelected === 'true') {
-        basicHan -= yakuValues[yakuName].han;
-        basicFu -= yakuValues[yakuName].fu;
-        selectedYaku = selectedYaku.filter(yaku => yaku !== yakuName);
-        this.classList.remove('selected');
-        this.dataset.isSelected = 'false';
+      // 七対子,平和の符計算
+      if (selectedYaku.includes('七対子')) {
+        totalFu = 25;
+      } else if (selectedYaku.includes('平和')) {
+        if (currentWinType === 'tumo') {
+          totalFu = 20;
+        } else if (currentWinType === 'ron') {
+          totalFu = 30;
+        }
       } else {
-        basicHan += yakuValues[yakuName].han;
-        basicFu += yakuValues[yakuName].fu;
-        selectedYaku.push(yakuName);
-        this.classList.add('selected');
-        this.dataset.isSelected = 'true';
+        if (currentWinType === 'ron' && currentMenzen === 'none') {
+          totalFu += 10; // 鳴きなしのロンは10符加算
+        } else if (currentWinType === 'tumo') {
+          totalFu += 2; // ツモなら符を2加算
+        }
+        totalFu = Math.ceil(totalFu / 10) * 10; // 10単位で切り上げ
       }
 
-      updateScoreDisplay();
+      totalHan = basicHan + calculateDoraBonus();
+
+      const menzenBonusYaku = ['三色同順', '一気通貫', '混一色', '清一色', '混全帯幺九', '純全帯幺九'];
+      menzenBonusYaku.forEach(yaku => {
+        if (selectedYaku.includes(yaku) && currentMenzen === 'naki') {
+          totalHan -= 1; // 鳴きありの場合、1翻減少
+        }
+      });
+
+      // スコアキーを生成
+      let scoreKey;
+      if (totalHan >= 13) {
+        scoreKey = 'han:over13,fu:any'; // 役満以上の場合
+      } else if (totalHan >= 5) {
+        scoreKey = `han:${totalHan},fu:any`; // 満貫以上の場合
+      } else if (totalHan === 4 && totalFu >= 30) {
+        scoreKey = 'han:4,fu:over30'; // 30符以上の4翻
+      } else if (totalHan === 3 && totalFu >= 60) {
+        scoreKey = 'han:3,fu:over60'; // 60符以上の3翻
+      } else {
+        scoreKey = `han:${totalHan},fu:${totalFu}`; // 通常の翻と符の組み合わせ
+      }
+
+      // スコアを取得
+      let totalScore = 'N/A';
+      if (yakuScore[scoreKey] && yakuScore[scoreKey][currentRole]) {
+        totalScore = yakuScore[scoreKey][currentRole][currentWinType] || 'N/A';
+      }
+
+      scoreDisplay.textContent = `合計翻: ${totalHan}, 合計符: ${totalFu}, 合計点数: ${totalScore}(＋本場点), ドラ枚数: ${totalDora}, 選択された役: ${selectedYaku.join(', ')}, 選択された符: ${selectedFu.join(', ')}`;
+    }
+
+    // 親と子の切り替え
+    roleRadios.forEach(radio => {
+      radio.addEventListener('change', function() {
+        currentRole = this.value;
+        updateScoreDisplay();
+      });
+    });
+
+    // ツモとロンの切り替え
+    winTypeRadios.forEach(radio => {
+      radio.addEventListener('change', function() {
+        currentWinType = this.value;
+        updateScoreDisplay();
+      });
+    });
+
+    // 鳴きなし（面前）と鳴きありの切り替え
+    menzenRadios.forEach(radio => {
+      radio.addEventListener('change', function() {
+        currentMenzen = this.value;
+        updateScoreDisplay();
+      });
+    });
+
+    // ドラ枚数ボタンのクリック
+    doraButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        totalDora = parseInt(this.dataset.dora);
+        updateScoreDisplay();
+      });
+    });
+
+    // 役ボタンのクリック
+    yakuButtons.forEach(button => {
+      button.dataset.isSelected = 'false';
+
+      button.addEventListener('click', function() {
+        const yakuName = this.textContent;
+
+        if (this.dataset.isSelected === 'true') {
+          basicHan -= yakuValues[yakuName].han;
+          basicFu -= yakuValues[yakuName].fu;
+          selectedYaku = selectedYaku.filter(yaku => yaku !== yakuName);
+          this.classList.remove('selected');
+          this.dataset.isSelected = 'false';
+        } else {
+          basicHan += yakuValues[yakuName].han;
+          basicFu += yakuValues[yakuName].fu;
+          selectedYaku.push(yakuName);
+          this.classList.add('selected');
+          this.dataset.isSelected = 'true';
+        }
+
+        updateScoreDisplay();
+      });
+    });
+
+    // 符ボタンのクリック
+    fuButtons.forEach(button => {
+      button.dataset.isSelected = 'false';
+
+      button.addEventListener('click', function() {
+        const fuName = this.textContent;
+
+        if (this.dataset.isSelected === 'true') {
+          basicFu -= fuValues[fuName].fu;
+          selectedFu = selectedFu.filter(fu => fu !== fuName);
+          this.classList.remove('selected');
+          this.dataset.isSelected = 'false';
+        } else {
+          basicFu += fuValues[fuName].fu;
+          selectedFu.push(fuName);
+          this.classList.add('selected');
+          this.dataset.isSelected = 'true';
+        }
+
+        updateScoreDisplay();
+      });
     });
   });
-});
 </script>
