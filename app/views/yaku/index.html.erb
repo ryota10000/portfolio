@@ -37,6 +37,10 @@
   点数がここに表示されます
 </div>
 
+<div class="text-2xl text-center my-4">
+  <button id="reset_button" class="bg-red-500 text-white p-2 rounded" onclick="resetAll()">リセット</button>
+</div>
+
 <!-- ドラ枚数選択ボタンを追加 -->
 <div id="dora-selection" class="text-center text-2xl my-4">
   <label>ドラ枚数:</label>
@@ -279,7 +283,8 @@
     const roleRadios = document.querySelectorAll('input[name="role"]');
     const winTypeRadios = document.querySelectorAll('input[name="winType"]');
     const menzenRadios = document.querySelectorAll('input[name="menzen"]');
-    const doraButtons = document.querySelectorAll('.dora-button'); // ドラ枚数ボタン
+    const doraButtons = document.querySelectorAll('.dora-button');
+    const resetButton = document.getElementById('reset_button');
     let basicHan = 0; // 基本の合計翻を保持する変数
     let totalHan = 0; // 最終的な合計翻を保持する変数
     let basicFu = 20; // 基本の合計符を保持する変数
@@ -433,5 +438,55 @@
         updateScoreDisplay();
       });
     });
+
+    function resetAll() {
+        // 基本の変数のリセット
+      basicHan = 0;
+      totalHan = 0;
+      basicFu = 20;
+      totalFu = 0;
+      totalDora = 0;
+      selectedYaku = [];
+      selectedFu = [];
+      currentRole = 'parent';
+      currentWinType = 'tumo';
+      currentMenzen = 'none';
+
+       // 役ボタンと符ボタンの選択状態をリセット
+      document.querySelectorAll('.yaku-button').forEach(button => {
+        button.classList.remove('selected');
+        button.dataset.isSelected = 'false';
+      });
+
+      document.querySelectorAll('.fu-button').forEach(button => {
+        button.classList.remove('selected');
+        button.dataset.isSelected = 'false';
+      });
+
+      // ドラボタンのリセット
+      doraButtons.forEach(button => {
+        button.classList.remove('selected');
+      });
+
+       // ラジオボタンのリセット
+      roleRadios.forEach(radio => {
+        radio.checked = radio.value === 'parent';
+      });
+
+      winTypeRadios.forEach(radio => {
+        radio.checked = radio.value === 'tumo';
+      });
+
+      menzenRadios.forEach(radio => {
+        radio.checked = radio.value === 'none';
+      });
+
+      // スコア表示の更新
+      updateScoreDisplay();
+    }
+
+    if (resetButton) {
+      resetButton.addEventListener('click', resetAll);
+    }
   });
 </script>
