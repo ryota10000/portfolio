@@ -387,22 +387,32 @@
     // ドラ枚数ボタンのクリック
     doraButtons.forEach(button => {
       button.addEventListener('click', function() {
-        const isSelected = this.classList.contains('selected');
+        const selectedButton = document.querySelector('.dora-button.selected');
 
-        // 選択状態に応じて処理を分ける
-        if (isSelected) {
+        if (this.classList.contains('selected')) {
+          // 既に選択されているボタンがクリックされた場合
           totalDora = 0; // 選択解除時にリセット
           this.classList.remove('selected');
           this.classList.remove('bg-red-500', 'text-white');
           this.classList.add('text-red-500', 'border-red-500');
           this.dataset.isSelected = 'false';
         } else {
+          // 他のボタンが選択されている場合、そのボタンをリセット
+          if (selectedButton) {
+            selectedButton.classList.remove('selected');
+            selectedButton.classList.remove('bg-red-500', 'text-white');
+            selectedButton.classList.add('text-red-500', 'border-red-500');
+            selectedButton.dataset.isSelected = 'false';
+          }
+
+           // 新しく選択されたボタンの処理
           totalDora = parseInt(this.dataset.dora);
           this.classList.add('selected');
           this.classList.add('bg-red-500', 'text-white');
           this.classList.remove('text-red-500', 'border-red-500');
           this.dataset.isSelected = 'true';
         }
+
         updateScoreDisplay();
       });
     });
