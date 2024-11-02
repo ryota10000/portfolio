@@ -60,7 +60,7 @@
     <div class="text-2xl text-center my-4">
       <% ["立直", "一発", "門前清自模和", "平和", "断么九"].each do |yaku| %>
         <% if @yaku_values[yaku] %>
-          <button class="yaku-button px-2 py-1 text-indigo-500 border border-indigo-500 font-semibold rounded hover:bg-indigo-100" data-han="<%= @yaku_values[yaku][:han] %>" data-fu="<%= @yaku_values[yaku][:fu] %>"><%= yaku %></button>
+          <button class="yaku-button cursor-pointer px-2 py-1 text-indigo-500 border border-indigo-500 font-semibold rounded hover:bg-indigo-100 peer-checked:bg-indigo-300 peer-checked:text-white" data-han="<%= @yaku_values[yaku][:han] %>" data-fu="<%= @yaku_values[yaku][:fu] %>"><%= yaku %></button>
         <% end %>
       <% end %>
     </div>
@@ -386,7 +386,18 @@
     // ドラ枚数ボタンのクリック
     doraButtons.forEach(button => {
       button.addEventListener('click', function() {
-        totalDora = parseInt(this.dataset.dora);
+        const isSelected = this.classList.contains('selected');
+
+        // 選択状態に応じて処理を分ける
+        if (isSelected) {
+          totalDora = 0; // 選択解除時にリセット
+          this.classList.remove('selected', 'bg-indigo-300', 'text-white'); // 選択解除
+          this.classList.add('text-indigo-500'); // 元の色に戻す
+        } else {
+          totalDora = parseInt(this.dataset.dora); // 新しいドラ枚数を設定
+          this.classList.add('selected', 'bg-indigo-300', 'text-white'); // 選択時の色を変更
+          this.classList.remove('text-indigo-500'); // 元の色を削除
+        }
         updateScoreDisplay();
       });
     });
@@ -403,12 +414,16 @@
           basicFu -= yakuValues[yakuName].fu;
           selectedYaku = selectedYaku.filter(yaku => yaku !== yakuName);
           this.classList.remove('selected');
+          this.classList.remove('bg-indigo-300', 'text-white');
+          this.classList.add('text-indigo-500');
           this.dataset.isSelected = 'false';
         } else {
           basicHan += yakuValues[yakuName].han;
           basicFu += yakuValues[yakuName].fu;
           selectedYaku.push(yakuName);
           this.classList.add('selected');
+          this.classList.add('bg-indigo-300', 'text-white');
+          this.classList.remove('text-indigo-500');
           this.dataset.isSelected = 'true';
         }
 
@@ -427,11 +442,15 @@
           basicFu -= fuValues[fuName].fu;
           selectedFu = selectedFu.filter(fu => fu !== fuName);
           this.classList.remove('selected');
+          this.classList.remove('bg-indigo-300', 'text-white');
+          this.classList.add('text-indigo-500');
           this.dataset.isSelected = 'false';
         } else {
           basicFu += fuValues[fuName].fu;
           selectedFu.push(fuName);
           this.classList.add('selected');
+          this.classList.add('bg-indigo-300', 'text-white');
+          this.classList.remove('text-indigo-500');
           this.dataset.isSelected = 'true';
         }
 
@@ -440,7 +459,7 @@
     });
 
     function resetAll() {
-        // 基本の変数のリセット
+      // 基本の変数のリセット
       basicHan = 0;
       totalHan = 0;
       basicFu = 20;
@@ -452,20 +471,26 @@
       currentWinType = 'tumo';
       currentMenzen = 'none';
 
-       // 役ボタンと符ボタンの選択状態をリセット
+      // 役ボタンと符ボタンの選択状態をリセット
       document.querySelectorAll('.yaku-button').forEach(button => {
         button.classList.remove('selected');
+        button.classList.remove('bg-indigo-300', 'text-white');
+        button.classList.add('text-indigo-500');
         button.dataset.isSelected = 'false';
       });
 
       document.querySelectorAll('.fu-button').forEach(button => {
         button.classList.remove('selected');
+        button.classList.remove('bg-indigo-300', 'text-white');
+        button.classList.add('text-indigo-500');
         button.dataset.isSelected = 'false';
       });
 
       // ドラボタンのリセット
       doraButtons.forEach(button => {
         button.classList.remove('selected');
+        button.classList.remove('bg-indigo-300', 'text-white');
+        button.classList.add('text-indigo-500');
       });
 
        // ラジオボタンのリセット
@@ -481,7 +506,6 @@
         radio.checked = radio.value === 'none';
       });
 
-      // スコア表示の更新
       updateScoreDisplay();
     }
 
