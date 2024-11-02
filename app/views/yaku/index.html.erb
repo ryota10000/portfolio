@@ -39,7 +39,7 @@
 
 <!-- リセットボタン -->
 <div class="text-2xl text-center my-4">
-  <button id="reset_button" class="bg-red-400 text-white p-2 rounded" onclick="resetAll()">リセット</button>
+  <button id="reset_button" class="bg-red-500 text-white p-2 rounded" onclick="resetAll()">リセット</button>
 </div>
 
 <!-- ドラ枚数選択ボタンを追加 -->
@@ -393,14 +393,14 @@
           // 既に選択されているボタンがクリックされた場合
           totalDora = 0; // 選択解除時にリセット
           this.classList.remove('selected');
-          this.classList.remove('bg-red-500', 'text-white');
+          this.classList.remove('bg-red-500', 'text-white', 'bg-opacity-80');
           this.classList.add('text-red-500', 'border-red-500');
           this.dataset.isSelected = 'false';
         } else {
           // 他のボタンが選択されている場合、そのボタンをリセット
           if (selectedButton) {
             selectedButton.classList.remove('selected');
-            selectedButton.classList.remove('bg-red-500', 'text-white');
+            selectedButton.classList.remove('bg-red-500', 'text-white', 'bg-opacity-80');
             selectedButton.classList.add('text-red-500', 'border-red-500');
             selectedButton.dataset.isSelected = 'false';
           }
@@ -408,7 +408,7 @@
            // 新しく選択されたボタンの処理
           totalDora = parseInt(this.dataset.dora);
           this.classList.add('selected');
-          this.classList.add('bg-red-500', 'text-white');
+          this.classList.add('bg-red-500', 'text-white', 'bg-opacity-80');
           this.classList.remove('text-red-500', 'border-red-500');
           this.dataset.isSelected = 'true';
         }
@@ -429,7 +429,7 @@
           basicFu -= yakuValues[yakuName].fu;
           selectedYaku = selectedYaku.filter(yaku => yaku !== yakuName);
           this.classList.remove('selected');
-          this.classList.remove('bg-indigo-300', 'text-white');
+          this.classList.remove('bg-indigo-500', 'text-white', 'bg-opacity-80');
           this.classList.add('text-indigo-500');
           this.dataset.isSelected = 'false';
         } else {
@@ -437,7 +437,7 @@
           basicFu += yakuValues[yakuName].fu;
           selectedYaku.push(yakuName);
           this.classList.add('selected');
-          this.classList.add('bg-indigo-300', 'text-white');
+          this.classList.add('bg-indigo-500', 'text-white', 'bg-opacity-80');
           this.classList.remove('text-indigo-500');
           this.dataset.isSelected = 'true';
         }
@@ -457,14 +457,14 @@
           basicFu -= fuValues[fuName].fu;
           selectedFu = selectedFu.filter(fu => fu !== fuName);
           this.classList.remove('selected');
-          this.classList.remove('bg-green-500', 'text-white');
+          this.classList.remove('bg-green-500', 'text-white', 'bg-opacity-80');
           this.classList.add('text-green-500');
           this.dataset.isSelected = 'false';
         } else {
           basicFu += fuValues[fuName].fu;
           selectedFu.push(fuName);
           this.classList.add('selected');
-          this.classList.add('bg-green-500', 'text-white');
+          this.classList.add('bg-green-500', 'text-white', 'bg-opacity-80');
           this.classList.remove('text-green-500');
           this.dataset.isSelected = 'true';
         }
