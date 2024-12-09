@@ -11,4 +11,10 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "yaku#index"
+
+  get 'auth/:provider/callback', to: 'sessions#create'
+  get 'auth/failure', to: redirect('/')
+  post 'logout', to: 'sessions#destroy', as: 'logout'
+
+  get '/auth/google_oauth2', to: 'sessions#create'
 end

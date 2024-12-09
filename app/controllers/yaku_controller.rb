@@ -1,4 +1,6 @@
 class YakuController < ApplicationController
+  skip_before_action :require_login, only: [ :index ]
+
   def index
     @yaku_values = {
       "立直" => { han: 1, fu: 0 },
