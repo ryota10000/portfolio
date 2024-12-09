@@ -16,5 +16,5 @@ Rails.application.routes.draw do
   get 'auth/failure', to: redirect('/')
   post 'logout', to: 'sessions#destroy', as: 'logout'
 
-  get '/auth/google_oauth2', to: 'sessions#create'
+  resources :sessions, only: %i[create destroy]
 end

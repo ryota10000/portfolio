@@ -1,22 +1,16 @@
 <header class="w-full mt-5 text-gray-700 bg-white border-t border-gray-100 shadow-sm body-font">
   <div class="container flex items-start justify-between p-6 min-w-full">
-    <a href="/" class="flex items-center mb-0 font-bold text-gray-900 title-font">
-      My Project
-    </a>
     <div class="items-center h-full">
       <% if current_user %>
         <div class="flex">
-          <p class="inline-block mr-5 font-medium">LoginUser:<%= current_user.email %></p>
-          <form action="/logout" method="post">
-            <button type="submit" class="mr-5 font-medium hover:text-gray-900">Logout</button>
-          </form>
+          <p class="inline-block mr-5 font-medium">
+            LoginUser: <%= current_user.email %>
+          </p>
+          <%= button_to "Logout", logout_path, method: :post, data: { turbo: false }, class: "mr-5 font-medium hover:text-gray-900" %>
         </div>
       <% else %>
-        <a href="/auth/google_oauth2" class="inline-block dark:bg-gray-800 px-4 py-2 border flex gap-2 border-slate-200 dark:border-slate-700 rounded-lg text-slate-700 dark:text-slate-200 hover:border-slate-400 dark:hover:border-slate-500 hover:text-slate-900 dark:hover:text-slate-300 hover:shadow transition duration-150">
-          <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="google logo" class="w-6 h-6" loading="lazy">
-          <span>Login with Google</span>
-        </a>
-    <% end %>
+        <%= button_to "Googleでログイン", "/auth/google_oauth2", method: :post, data: { turbo: false }, class: "mr-5 font-medium hover:text-gray-900" %>
+      <% end %>
     </div>
   </div>
 </header>
