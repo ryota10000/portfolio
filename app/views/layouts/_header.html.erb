@@ -4,8 +4,9 @@
       <% if current_user %>
         <div class="flex">
           <p class="inline-block mr-5 font-medium">
-            LoginUser: <%= current_user.email %>
+            LoginUser: <%= current_user.name %>
           </p>
+          <a href="<%= mypage_path %>" class="mr-5 font-medium">マイページ</a>
           <%= button_to "Logout", logout_path, method: :post, data: { turbo: false }, class: "mr-5 font-medium hover:text-gray-900" %>
         </div>
       <% else %>
