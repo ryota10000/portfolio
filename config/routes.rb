@@ -18,5 +18,8 @@ Rails.application.routes.draw do
   post 'logout', to: 'sessions#destroy', as: 'logout'
 
   resources :sessions, only: %i[create destroy]
-  resource :mypage, only: [:show, :edit, :update], controller: 'users'
+  resource :mypage, only: [:show, :update], controller: 'users'
+  resources :scores, only: [:create] do
+    delete :destroy_group, on: :collection
+  end
 end

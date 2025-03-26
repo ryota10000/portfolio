@@ -1,3 +1,17 @@
 <h1><%= @user.name %>さんのマイページ</h1>
 
+<%= render "users/form" %>
 
+<div id="scores-container">
+  <% @user.scores.order(:id).each_slice(3).with_index do |score_group, group_index| %>
+    <div id="score-group-<%= group_index %>" class="score-group">
+      <%= form_with url: destroy_group_scores_path, method: :delete, data: { turbo_confirm: "この3つのスコアを削除しますか？" } do %>
+        <% score_group.each do |score| %>
+          <%= hidden_field_tag "score_ids[]", score.id %>
+          <%= render partial: 'scores/score', locals: { score: score } %>
+        <% end %>
+        <%= submit_tag "この3つを削除" %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

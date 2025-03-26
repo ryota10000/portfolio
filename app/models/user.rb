@@ -3,6 +3,8 @@ class User < ApplicationRecord
   validates :uid, presence: true
   validates :email, uniqueness: { allow_nil: true }, format: { with: URI::MailTo::EMAIL_REGEXP, message: "Please enter a valid email address" }, allow_blank: true
 
+  has_many :scores, dependent: :destroy
+
   def self.find_or_create_from_auth_hash(auth_hash)
     user = find_or_initialize_by(provider: auth_hash['provider'], uid: auth_hash['uid'])
     user.email = auth_hash['info']['email']
