@@ -1,1 +1,5 @@
-<turbo-stream action="remove" target="score-group-<%= params[:score_ids].first %>"></turbo-stream>
+<turbo-stream action="replace" target="scores-container">
+  <template>
+    <%= render partial: "users/scores", formats: :html, locals: { user: @user } %>
+  </template>
+</turbo-stream>

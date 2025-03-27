@@ -13,20 +13,21 @@ class ScoresController < ApplicationController
   end
 
   def destroy_group
-    if params[:score_ids].present?
-      scores = current_user.scores.where(id: params[:score_ids])
+    @user = current_user
 
-      if scores.any?
-        scores.destroy_all
-        respond_to do |format|
-          format.turbo_stream
-          format.html { redirect_to mypage_path, notice: "スコアを削除しました" }
-        end
-      else
-        redirect_to mypage_path, alert: "削除するスコアが見つかりません"
+    if params[:score_ids].blank?
+      redirect_to mypage_path, alert: "削除するスコアが指定されていません" and return
+    end
+
+    @scores = @user.scores.where(id: params[:score_ids])
+
+    if @scores.destroy_all
+      respond_to do |format|
+        format.turbo_stream { render :destroy_group, formats: :turbo_stream, locals: { user: @user } } # スコアを渡す必要はもうありません
+        format.html { redirect_to mypage_path, notice: "スコアを削除しました" }
       end
     else
-      redirect_to mypage_path, alert: "削除するスコアが指定されていません"
+      redirect_to mypage_path, alert: "削除するスコアが見つかりません"
     end
   end
 
