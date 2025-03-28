@@ -1,20 +1,23 @@
-<div id="scores-container">
-  <% @user.scores.each_slice(3).with_index do |score_group, group_index| %>
-    <div id="score-group-<%= group_index %>" class="score-group">
-      <% score_group.each do |score| %>
-        <p><%= score.name %>: <%= score.score %>点</p>
-      <% end %>
-
-      <% if score_group.present? %>
-        <%= form_with url: destroy_group_scores_path, method: :delete, data: { turbo_confirm: "このグループのスコアを削除しますか？" } do |form| %>
-          <% score_group.each do |score| %>
-            <%= form.hidden_field "score_ids[]", value: score.id %>
-          <% end %>
-          <%= form.submit "このグループを削除" %>
+<div id="scores-container" style="display: flex; flex-direction: column; align-items: center;">
+  <% @user.scores.order(:created_at).each_slice(3).with_index do |score_group, group_index| %>
+    <div id="score-group-<%= group_index %>" class="score-group" style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; width: 300px;">
+      <div>
+        <% score_group.each do |score| %>
+          <p><%= score.name %>: <%= score.score %>点</p>
         <% end %>
-      <% end %>
+
+        <% if score_group.present? %>
+          <%= form_with url: destroy_group_scores_path, method: :delete, data: { turbo_confirm: "このグループのスコアを削除しますか？" } do |form| %>
+            <% score_group.each do |score| %>
+              <%= form.hidden_field "score_ids[]", value: score.id %>
+            <% end %>
+            <%= form.submit "このグループを削除" %>
+          <% end %>
+        <% end %>
+      </div>
     </div>
   <% end %>
+</div>
 
   <% if @user.scores.count % 3 > 0 %>
     <div id="remaining-scores" class="score-group">
@@ -23,7 +26,7 @@
         <p><%= score.name %>: <%= score.score %>点</p>
       <% end %>
       <% if remaining_scores.present? %>
-        <%= form_with url: destroy_group_scores_path, method: :delete, data: { turbo_confirm: "残りのスコアを削除しますか？" } do |form| %>
+        <%= form_with url: destroy_group_scores_path, method: :delete, data: { turbo_confirm: "このグループのスコアを削除しますか？" } do |form| %>
           <% remaining_scores.each do |score| %>
             <%= form.hidden_field "score_ids[]", value: score.id %>
           <% end %>

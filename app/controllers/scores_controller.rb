@@ -6,7 +6,7 @@ class ScoresController < ApplicationController
     @new_scores = scores_params.map { |score_data| @user.scores.build(score_data) unless score_data.values.any?(&:blank?) }.compact
 
     if @new_scores.all?(&:save)
-      redirect_to mypage_path, notice: "スコアを追加しました"
+      redirect_to battle_score_path, notice: "スコアを追加しました"
     else
       render 'users/show', status: :unprocessable_entity
     end
@@ -16,7 +16,7 @@ class ScoresController < ApplicationController
     @user = current_user
 
     if params[:score_ids].blank?
-      redirect_to mypage_path, alert: "削除するスコアが指定されていません" and return
+      redirect_to battle_score_path, alert: "削除するスコアが指定されていません" and return
     end
 
     @scores = @user.scores.where(id: params[:score_ids])
@@ -24,10 +24,10 @@ class ScoresController < ApplicationController
     if @scores.destroy_all
       respond_to do |format|
         format.turbo_stream { render :destroy_group, formats: :turbo_stream, locals: { user: @user } } # スコアを渡す必要はもうありません
-        format.html { redirect_to mypage_path, notice: "スコアを削除しました" }
+        format.html { redirect_to battle_score_path, notice: "スコアを削除しました" }
       end
     else
-      redirect_to mypage_path, alert: "削除するスコアが見つかりません"
+      redirect_to battle_score_path, alert: "削除するスコアが見つかりません"
     end
   end
 

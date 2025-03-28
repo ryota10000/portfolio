@@ -248,7 +248,7 @@
   </div>
 </div>
 
-<div class="flex justify-center">
+<div class="flex justify-center space-x-20">
   <div class="text-2xl text-center my-4">
     <h2 class="text-2xl text-center my-4">雀頭</h2> <!-- 符の見出し -->
 
@@ -260,9 +260,9 @@
         <% end %>
       <% end %>
     </div>
-</div>
+  </div>
 
-<div class="flex justify-center">
+
   <div class="text-2xl text-center my-4">
     <h2 class="text-2xl text-center my-4">待ちの形</h2> <!-- 符の見出し -->
 
@@ -274,7 +274,10 @@
         <% end %>
       <% end %>
     </div>
+  </div>
 </div>
+
+<%= render 'layouts/footer' %>
 
 <script>
   document.addEventListener("DOMContentLoaded", function() {
@@ -357,7 +360,7 @@
         totalScore = yakuScore[scoreKey][currentRole][currentWinType] || 'N/A';
       }
 
-      scoreDisplay.textContent = `合計翻: ${totalHan}, 合計符: ${totalFu}, 合計点数: ${totalScore}(＋本場点), ドラ枚数: ${totalDora}, 選択された役: ${selectedYaku.join(', ')}, 選択された符: ${selectedFu.join(', ')}`;
+      scoreDisplay.textContent = `合計点数: ${totalScore}(＋本場点), 合計翻: ${totalHan}, 合計符: ${totalFu},  ドラ枚数: ${totalDora}, 選択された役: ${selectedYaku.join(', ')}, 選択された符: ${selectedFu.join(', ')}`;
     }
 
     // 親と子の切り替え
