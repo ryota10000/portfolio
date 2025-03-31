@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   def require_login
     return if current_user
 
-    flash[:danger] = 'Googleログインが必要です'
+    flash[:danger] = "Googleログインが必要です"
     redirect_to root_path
   end
 end

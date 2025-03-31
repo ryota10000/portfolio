@@ -8,7 +8,7 @@ class ScoresController < ApplicationController
     if @new_scores.all?(&:save)
       redirect_to battle_score_path, notice: "スコアを追加しました"
     else
-      render 'users/show', status: :unprocessable_entity
+      render "users/show", status: :unprocessable_entity
     end
   end
 

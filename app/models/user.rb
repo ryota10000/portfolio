@@ -6,9 +6,9 @@ class User < ApplicationRecord
   has_many :scores, dependent: :destroy
 
   def self.find_or_create_from_auth_hash(auth_hash)
-    user = find_or_initialize_by(provider: auth_hash['provider'], uid: auth_hash['uid'])
-    user.email = auth_hash['info']['email']
-    user.name = auth_hash['info']['name']
+    user = find_or_initialize_by(provider: auth_hash["provider"], uid: auth_hash["uid"])
+    user.email = auth_hash["info"]["email"]
+    user.name = auth_hash["info"]["name"]
     user.save!
     user
   rescue ActiveRecord::RecordInvalid => e
