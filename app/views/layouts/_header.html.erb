@@ -1,6 +1,6 @@
-<header class="w-full mt-5 text-gray-700 bg-white border-t border-gray-100 shadow-sm body-font">
-  <div class="container flex items-start justify-between p-6 min-w-full" style="justify-content: space-between;"> <%# space-between を指定 %>
-    <%= link_to "使い方の説明", help_path, data: { turbo: false }, class: "font-medium" %> <%# <a>タグを削除、classを追加 %>
+<header class="text-align: center;">
+  <div class="container flex items-start justify-between p-6 min-w-full" style="justify-content: space-between;">
+    <%= link_to "使い方の説明", help_path, data: { turbo: false }, class: "font-medium" %>
 
     <div class="items-center h-full">
       <% if current_user %>
