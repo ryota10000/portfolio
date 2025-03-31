@@ -1,7 +1,7 @@
 <turbo-stream action="append" target="scores">
   <template>
     <% @new_scores.each do |score| %>
-      <%= render partial: 'scores/score', locals: { score: score } %>
+      <%= score.name %>: <%= score.score %>
     <% end %>
   </template>
 </turbo-stream>

@@ -9,7 +9,7 @@
             LoginUser: <%= current_user.name %>
           </p>
           <a href="<%= battle_score_path %>" class="mr-5 font-medium">対戦履歴</a>
-          <%= button_to "Logout", logout_path, method: :post, data: { turbo: false }, class: "mr-5 font-medium hover:text-gray-900" %>
+          <%= button_to "ログアウト", logout_path, method: :post, data: { turbo: false }, class: "mr-5 font-medium hover:text-gray-900" %>
         </div>
       <% else %>
         <%= button_to "Googleでログイン", "/auth/google_oauth2", method: :post, data: { turbo: false }, class: "mr-5 font-medium hover:text-gray-900" %>
