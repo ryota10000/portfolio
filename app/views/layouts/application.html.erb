@@ -18,26 +18,26 @@
     <%= csp_meta_tag %>
 
     <!-- OGP設定 -->
-    <meta property="og:title" content="<%= h(@page_title || '麻雀') %>">
+    <meta property="og:title" content="<%= h(@page_title || '3人麻雀点数計算アプリ') %>">
     <meta property="og:type" content="website">
     <meta property="og:url" content="<%= request.original_url %>">
-    <meta property="og:image" content="<%= request.base_url + '/images/ma-zyan.png' %>">
-    <meta property="og:description" content="<%= h(@page_description || '3人麻雀点数計算アプリ') %>">
+    <meta property="og:image" content="<%= request.base_url + '/images/ma-zyan_icon.png' %>">
+    <meta property="og:description" content="<%= h(@page_description || '3人麻雀の点数計算と、対戦の保存が可能です！') %>">
     <meta property="og:site_name" content="麻雀">
     <meta property="og:locale" content="ja_JP">
 
     <!-- Twitterカード設定 -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="<%= h(@page_title || '麻雀') %>">
-    <meta name="twitter:description" content="<%= h(@page_description || '3人麻雀点数計算アプリ') %>">
-    <meta name="twitter:image" content="<%= request.base_url + '/images/ma-zyan.png' %>">
+    <meta name="twitter:title" content="<%= h(@page_title || '3人麻雀点数計算アプリ') %>">
+    <meta name="twitter:description" content="<%= h(@page_description || '3人麻雀の点数計算と、対戦の保存が可能です！') %>">
+    <meta name="twitter:image" content="<%= request.base_url + '/images/ma-zyan_icon.png' %>">
 
     <%= yield :head %>
 
     <link rel="manifest" href="/manifest.json">
-    <link rel="icon" href="/images/ma-zyan.png" type="image/png">
-    <link rel="icon" href="/images/ma-zyan.png" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/images/ma-zyan.png">
+    <link rel="icon" href="/images/ma-zyan_icon.png" type="image/png">
+    <link rel="icon" href="/images/ma-zyan_icon.png" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/images/ma-zyan.png_icon">
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
   </head>
