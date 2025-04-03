@@ -1,9 +1,9 @@
 <div id="scores-container" style="display: flex; flex-direction: column; align-items: center;">
   <% @user.scores.order(:created_at).each_slice(3).with_index do |score_group, group_index| %>
-    <div id="score-group-<%= group_index %>" class="score-group" style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; width: 300px;">
+    <div id="score-group-<%= group_index %>" class="score-group" style="border: 2px solid #000; padding: 10px; margin-bottom: 10px; width: 300px; text-align: center;">
       <div>
         <% score_group.each do |score| %>
-          <p><%= score.name %>: <%= score.score %>点</p>
+          <p class="text-center"><%= score.name %>: <%= score.score %>点</p>
         <% end %>
 
         <% if score_group.present? %>
@@ -11,26 +11,29 @@
             <% score_group.each do |score| %>
               <%= form.hidden_field "score_ids[]", value: score.id %>
             <% end %>
-            <%= form.submit "このグループを削除" %>
+            <div class="text-center">
+              <%= form.submit "このグループを削除", class: "border border-black p-2 rounded hover:bg-gray-200" %>
+            </div>
           <% end %>
         <% end %>
       </div>
     </div>
   <% end %>
-</div>
 
   <% if @user.scores.count % 3 > 0 %>
-    <div id="remaining-scores" class="score-group">
+    <div id="remaining-scores" class="score-group" style="text-align: center;">
       <% remaining_scores = @user.scores.last(@user.scores.count % 3) %>
       <% remaining_scores.each do |score| %>
-        <p><%= score.name %>: <%= score.score %>点</p>
+        <p class="text-center"><%= score.name %>: <%= score.score %>点</p>
       <% end %>
       <% if remaining_scores.present? %>
         <%= form_with url: destroy_group_scores_path, method: :delete, data: { turbo_confirm: "このグループのスコアを削除しますか？" } do |form| %>
           <% remaining_scores.each do |score| %>
             <%= form.hidden_field "score_ids[]", value: score.id %>
           <% end %>
-          <%= form.submit "このグループを削除" %>
+          <div class="text-center">
+            <%= form.submit "このグループを削除", class: "border border-black p-2 rounded hover:bg-gray-200" %>
+          </div>
         <% end %>
       <% end %>
     </div>
